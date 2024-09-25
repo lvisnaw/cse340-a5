@@ -31,7 +31,7 @@ body {
 nav {
   background-color: #000;
   width: 100%;
-  padding: 5px 0; /* Base padding for mobile */
+  padding: 5px 0;
   box-sizing: border-box;
 }
 
@@ -40,26 +40,26 @@ nav ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  display: flex; /* Keep the items in a flex container */
-  justify-content: center; /* Center the items */
-  flex-wrap: nowrap; /* Prevent items from wrapping */
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
 }
 
 /* Style individual navigation items */
 nav ul li {
-  margin: 0 5px; /* Reduced margin for tighter spacing */
-  white-space: nowrap; /* Prevent text from wrapping */
+  margin: 0 5px;
+  white-space: nowrap;
 }
 
 nav ul li a {
   display: block;
-  padding: 8px 10px; /* Base padding for mobile */
+  padding: 8px 10px;
   background-color: #000;
   color: #fff;
   text-decoration: none;
   text-align: center;
   border-radius: 5px;
-  font-size: 14px; /* Base font size for mobile */
+  font-size: 14px;
 }
 
 nav ul li a:hover {
@@ -70,16 +70,16 @@ nav ul li a:hover {
 /* Adjustments for larger screens */
 @media only screen and (min-width: 768px) {
   nav {
-    padding: 10px 0; /* Increase padding for larger screens */
+    padding: 10px 0;
   }
 
   nav ul li {
-    margin: 0 15px; /* Increase margin for larger screens */
+    margin: 0 15px;
   }
 
   nav ul li a {
-    padding: 12px 20px; /* Increase padding for larger screens */
-    font-size: 16px; /* Increase font size for larger screens */
+    padding: 12px 20px;
+    font-size: 16px;
   }
 }
 
@@ -130,32 +130,32 @@ h1 {
   }
 
   main {
-    background-size: contain; /* Change to contain for smaller screens */
-    min-height: 300px; /* Adjust minimum height for smaller screens */
-    padding: 15px; /* Adjust padding for smaller screens */
+    background-size: contain; 
+    min-height: 300px; 
+    padding: 15px; 
   }
 
   h1 {
-    font-size: 24px; /* Smaller font size for mobile */
-    margin-bottom: 15px; /* Adjust margin for mobile */
+    font-size: 24px; 
+    margin-bottom: 15px; 
   }
 }
 
 @media only screen and (min-width: 768px) {
   body {
-    background-image: url('/images/site/checkerboard.jpg'); /* Show body background image on larger screens */
-    background-size: cover; /* Ensure the image covers the area */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent repeating the image */
+    background-image: url('/images/site/checkerboard.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   #wrapper {
-    border: 5px solid var(--main-accent); /* Blue border for larger screens */
+    border: 5px solid var(--main-accent);
     border-radius: 10px;
     margin-top: 1rem;
     padding: 1vw;
     width: 75vw;
     max-width: 1200px;
-    background-color: #fff; /* Set background color for the wrapper */
+    background-color: #fff;
   }
 }
