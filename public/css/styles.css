@@ -8,8 +8,9 @@
 /* ADDED FOR CONVENIENCE */
 :root {
   --primary-background: #fff;
-  --main-accent: #01b0d3;
+  --main-accent: #137bc5;
   --blk: #000;
+  --drk-blue: #00008B;
 }
 
 body {
@@ -21,6 +22,7 @@ body {
 }
 
 h1, h2, h3, p {
+  font-family: "Raleway", sans-serif;
   color: var(--blk);
   margin: 20px auto;
 }
@@ -158,7 +160,7 @@ h1 {
 
 #tools a {
   text-decoration: none;
-  color: #007BFF;
+  color: var(--drk-blue);
 }
 
 #tools a:hover {
