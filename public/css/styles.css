@@ -9,6 +9,7 @@
 :root {
   --primary-background: #fff;
   --main-accent: #01b0d3;
+  --blk: #000;
 }
 
 body {
@@ -17,6 +18,26 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+h1, h2, h3, p {
+  color: var(--blk);
+  margin: 20px auto;
+}
+
+h1 {
+  font-size: 24px;
+  margin: 24px auto;
+}
+
+h2 {
+  font-size: 22px;
+  margin: 22px auto;
+}
+
+h3 {
+  font-size: 20px;
+  margin: 20px auto;
 }
 
 #wrapper {
@@ -29,7 +50,7 @@ body {
 
 /* Full-width black navbar */
 nav {
-  background-color: #000;
+  background-color: var(--blk);
   width: 100%;
   padding: 5px 0;
   box-sizing: border-box;
@@ -54,7 +75,7 @@ nav ul li {
 nav ul li a {
   display: block;
   padding: 8px 10px;
-  background-color: #000;
+  background-color: var(--blk);
   color: #fff;
   text-decoration: none;
   text-align: center;
@@ -67,30 +88,51 @@ nav ul li a:hover {
   color: #fff;
 }
 
-/* Adjustments for larger screens */
-@media only screen and (min-width: 768px) {
-  nav {
-    padding: 10px 0;
-  }
+/* Section Styling */
+section {
+  width: 30%; 
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-  nav ul li {
-    margin: 0 15px;
-  }
+section h2 {
+  margin-bottom: 10px;
+  color: var(--main-accent);
+}
 
-  nav ul li a {
-    padding: 12px 20px;
-    font-size: 16px;
-  }
+section ul {
+  list-style-type: none;
+  padding-left: 0;
+  color: var(--main-accent);
+}
+
+section button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: var(--main-accent);
+  color: var(--blk);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+section button:hover {
+  background-color: #018cae;
 }
 
 /* Main */
 main {
   background-image: url('/images/vehicles/delorean.jpg');
   background-size: 80%;
-  background-position: center;
+  background-position: top right;
   background-repeat: no-repeat;
   min-height: 400px;
   padding: 20px;
+  margin-top: 20px;
   position: relative;
 }
 
@@ -110,7 +152,7 @@ h1 {
 
 .siteName a {
   text-decoration: none;
-  color: #000;
+  color: var(--blk);
   font-weight: bold;
 }
 
@@ -123,10 +165,168 @@ h1 {
   text-decoration: underline;
 }
 
+/* Selections Styles */
+.side-by-side {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%; /* Full width */
+  color: var(--blk);
+}
+
+.section {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles for upgrades */
+.side-by-side h3 {
+  color: var(--blk);
+}
+
+/* Styles for the image grid */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px; 
+}
+
+/* Responsive adjustments for the upgrades section */
+@media only screen and (max-width: 768px) {
+  .image-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Additional styles for sections */
+@media only screen and (max-width: 480px) {
+  .image-grid {
+    grid-template-columns: 1fr; 
+  }
+}
+
+.image-item {
+  text-align: center;
+}
+
+.image-item {
+  width: 200px; 
+  height: 200px; 
+  overflow: hidden;
+}
+
+.image-item img {
+  width: 50%; 
+  height: auto; 
+  object-fit: cover; 
+  border-radius: 5px;
+  transition: transform 0.3s ease;
+}
+
+.image-item img:hover {
+  transform: scale(1.05); 
+}
+
+.image-item span {
+  display: block;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.image-item a {
+  text-decoration: none;
+  color: var(--blk);
+}
+
+/* Styles for the bullet points */
+.reviews h2 {
+  color: var(--blk);
+}
+.reviews ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  text-align: left;
+}
+
+.reviews li {
+  color: var(--blk);
+  margin-bottom: 10px;
+}
+
+/* Responsive design: stack sections on mobile */
+@media only screen and (max-width: 768px) {
+  .side-by-side {
+    flex-direction: column;
+  }
+
+  .section {
+    width: 100%;
+    margin-bottom: 20px; 
+  }
+}
+
+/* Additional styling for the "DMC Delorean" section */
+section {
+  width: 30%; 
+  background-color: rgba(255, 255, 255, 0.8); 
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust "DMC Delorean" section responsiveness */
+@media only screen and (max-width: 768px) {
+  section {
+    width: 100%;
+    margin: 20px 0;
+  }
+}
+
+/* Medium screens (tablets, small desktops) */
+@media only screen and (max-width: 1024px) {
+  section {
+    width: 50%; 
+  }
+}
+
+/* Small screens (phones, smaller tablets) */
+@media only screen and (max-width: 768px) {
+  section {
+    width: 70%; 
+  }
+}
+
+/* Extra small screens (very small devices) */
+@media only screen and (max-width: 480px) {
+  section {
+    width: 80%; 
+  }
+}
+
+/* Adjustments for larger screens */
+@media only screen and (min-width: 768px) {
+  nav {
+    padding: 10px 0;
+  }
+
+  nav ul li {
+    margin: 0 15px;
+  }
+
+  nav ul li a {
+    padding: 12px 20px;
+    font-size: 16px;
+  }
+}
+
 /* Combined Media Queries */
 @media only screen and (max-width: 768px) {
   body {
-    background-image: none; /* Hide the body background image on mobile */
+    background-image: none; 
   }
 
   main {
@@ -157,5 +357,46 @@ h1 {
     width: 75vw;
     max-width: 1200px;
     background-color: #fff;
+  }
+}
+
+/* Center-align everything on small screens */
+@media only screen and (max-width: 768px) {
+  body {
+    background-image: none; 
+  }
+
+  main {
+    background-size: contain; 
+    min-height: 300px; 
+    padding: 15px; 
+    text-align: center; 
+  }
+
+  h1, h2, h3, p {
+    text-align: center; 
+  }
+
+  #wrapper {
+    text-align: center;
+  }
+
+  .section {
+    margin: 0 auto; 
+    width: auto; 
+  }
+
+  .image-item {
+    margin: 0 auto; 
+  }
+
+  .side-by-side {
+    flex-direction: column; 
+    align-items: center; 
+  }
+
+  section {
+    width: 100%; 
+    margin-bottom: 20px; 
   }
 }
