@@ -1,5 +1,5 @@
 CREATE TYPE public.account_type AS ENUM
-    ('client', 'employee', 'admin');
+    ('Client', 'Employee', 'Admin');
 
 ALTER TYPE public.account_type
     OWNER TO cse340ljv_user;
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS public.account
     account_lastname character varying NOT NULL,
     account_email character varying NOT NULL,
     account_password character varying NOT NULL,
-    account_type account_type NOT NULL DEFAULT 'client'::account_type,
+    account_type account_type NOT NULL DEFAULT 'Client'::account_type,
     CONSTRAINT account_pkey PRIMARY KEY (account_id)
 );
 
@@ -236,3 +236,14 @@ VALUES   (
     'White',
     5
   );
+
+-- Modify 'GM Hummer'
+UPDATE public.inventory
+SET inv_description = REPLACE(inv_description, 'small interiors', 'a huge interior')
+WHERE inv_id = 10;
+
+-- Add '/vehicles' 
+UPDATE public.inventory
+SET 
+    inv_image = REPLACE(inv_image, '/images/', '/images/vehicles/'), 
+    inv_thumbnail = REPLACE(inv_thumbnail, '/images/', '/images/vehicles/');
