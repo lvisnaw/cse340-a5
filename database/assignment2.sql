@@ -4,7 +4,7 @@ VALUES ('Tony', 'Stark', 'tony@starkent.com', 'Iam1ronM@n');
 
 -- Change account type
 UPDATE public.account
-SET account_type = 'admin'
+SET account_type = 'Admin'
 WHERE account_id = 1;
 
 -- Delete account
