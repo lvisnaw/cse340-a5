@@ -4,7 +4,7 @@
 
 <body>
         <div id="vehicle-wrapper">
-            <% if (vehicle) { %>  <!-- Check if vehicle data is available -->
+            <% if (vehicle) { %> 
                 <section id="vehicle-details">
                     <button id="close-btn" onclick="window.history.back()">Close</button> 
                     <img src="<%= vehicle.inv_image %>" alt="Image of <%= vehicle.inv_make %> <%= vehicle.inv_model %>">
