@@ -33,7 +33,7 @@ Util.buildClassificationGrid = async function(data){
     if(data.length > 0){
       grid = '<ul id="inv-display">'
       data.forEach(vehicle => { 
-        grid += '<li>'
+        grid += '<li class="inv-image">'
         grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
         + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
         + 'details"><img src="' + vehicle.inv_thumbnail 
@@ -57,6 +57,26 @@ Util.buildClassificationGrid = async function(data){
     }
     return grid
   }
+
+/* **************************************
+* Build the vehicle detail HTML
+* ************************************ */
+Util.buildDetailView = async function(vehicle) {
+  let detailView = `
+  <div class="vehicle-detail">
+      <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
+      <div class="vehicle-info">
+          <h2>${vehicle.inv_make} ${vehicle.inv_model}</h2>
+          <p>Price: $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</p>
+          <p>Year: ${vehicle.inv_year}</p>
+          <p>Miles: ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)} miles</p>
+          <p>Color: ${vehicle.inv_color}</p>
+          <p>Description: ${vehicle.inv_description}</p>
+      </div>
+  </div>
+  `;
+  return detailView;
+}
 
 /* ****************************************
  * Middleware For Handling Errors

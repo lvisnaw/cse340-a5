@@ -31,6 +31,13 @@ app.use(static)
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", inventoryRoute)
+
+// ** New Route for Triggering Intentional Error **
+app.get("/trigger-error", (req, res, next) => {
+  // Trigger an intentional error
+  throw new Error("This is an intentional error for testing purposes.");
+});
+
 // 404 Page
 app.use(async (req, res, next) => {
   next({ status: 404, message: "Sorry, we appear to have lost that page." })
@@ -38,12 +45,17 @@ app.use(async (req, res, next) => {
 
 /* ***********************
  * Express Error Handler
- * Placeafter all other middleware
+ * Place after all other middleware
  * *************************/
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if(err.status == 404){ message = err.message } else { message = 'Oh no! There was a crash. Maybe try a different route?' }
+  let message;
+  if (err.status == 404) { 
+      message = err.message; 
+  } else { 
+      message = 'Oh no! There was a crash. Maybe try a different route?'; 
+  }
   res.render("errors/error", {
     title: err.status || 'Server Error',
     message,

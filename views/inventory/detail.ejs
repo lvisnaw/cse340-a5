@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+
+<body>
+        <div id="vehicle-wrapper">
+            <% if (vehicle) { %>  <!-- Check if vehicle data is available -->
+                <section id="vehicle-details">
+                    <button id="close-btn" onclick="window.history.back()">Close</button> 
+                    <img src="<%= vehicle.inv_image %>" alt="Image of <%= vehicle.inv_make %> <%= vehicle.inv_model %>">
+                    <div class="details">
+                        <h2 id="vehicle-title"><%= vehicle.inv_make %> <%= vehicle.inv_model %></h2>
+                        <p>Price: $<%= new Intl.NumberFormat('en-US').format(vehicle.inv_price) %></p>
+                        <p>Year: <%= vehicle.inv_year %></p>
+                        <p>Miles: <%= new Intl.NumberFormat('en-US').format(vehicle.inv_miles) %></p>
+                        <p>Color: <%= vehicle.inv_color %></p>
+                        <p>Description: <%= vehicle.inv_description %></p>
+                    </div>
+                </section>
+            <% } else { %>
+                <h1>Vehicle not found</h1>
+                <p>We're sorry, but the vehicle you are looking for does not exist.</p>
+                <a href="/">Return to Homepage</a>
+            <% } %>
+            </div>
+
+</body>
+</html>
