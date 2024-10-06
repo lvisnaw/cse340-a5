@@ -379,6 +379,44 @@ section {
   width: 10%;
 }
 
+/* Error Page Styles */
+#error-wrapper {
+  text-align: left;
+  padding: 50px;
+  background-color: #f9d6d5; /* Light red background for error */
+  color: #333;
+  border-radius: 10px;
+  margin: 50px auto;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.error-title {
+  font-size: 2.5rem;
+  color: #e74c3c; /* Red color for error title */
+  margin-bottom: 20px;
+}
+
+.error-message {
+  font-size: 1.2rem;
+  color: #333;
+  margin-top: 20px;
+}
+
+.error-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3498db; /* Blue background for link */
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 30px;
+}
+
+.error-link:hover {
+  background-color: #2980b9;
+}
+
 /* Responsive design: for vehicle details */
 @media (max-width: 768px) {
   #vehicle-details {
