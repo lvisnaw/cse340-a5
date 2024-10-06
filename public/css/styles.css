@@ -298,6 +298,12 @@ section {
 }
 
 /* Inventory Display */
+#classification-title {
+  background-color: var(--primary-background);
+  padding: 20px 0 40px;
+  margin: 20px 0 -30px;
+}
+
 #inv-display {
   background-color: var(--primary-background);
   display: grid; 
@@ -325,14 +331,18 @@ section {
 .namePrice {
   padding: 10px; 
   background-color: rgba(255, 255, 255, 0.8); 
-  border-radius: 5px; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  border-radius: 5px;
 }
 
 .inv-image {
   width: 200px; 
   height: auto; 
   overflow: hidden;
+  object-fit: cover;
+  border: 1px solid var(--main-accent);
+  border-radius: 4px;
+  margin: 0 10px 10px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Vehicles Display */
@@ -538,5 +548,38 @@ section {
   section {
     width: 100%; 
     margin-bottom: 20px; 
+  }
+}
+
+/* Mobile CSS for inv-display */
+@media (max-width: 600px) {
+  #classification-title {
+    font-size: 5vh;
+    padding-bottom: 50px;
+  }
+
+  #inv-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  #inv-display li {
+    width: 100%; 
+    max-width: 300px; 
+    margin-bottom: 20px; 
+  }
+
+  #inv-display img {
+    width: 100%; 
+    height: auto; 
+  }
+
+  #inv-display .namePrice {
+    text-align: center; 
+    font-size: 3vh;
   }
 }
