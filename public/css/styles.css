@@ -11,6 +11,8 @@
   --main-accent: #137bc5;
   --blk: #000;
   --drk-blue: #00008B;
+  --lt-blue: #82dbf9;
+  --main-font: 'Raleway', sans-serif;
 }
 
 body {
@@ -19,10 +21,11 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  font-family: var(--main-font);
 }
 
 h1, h2, h3, p {
-  font-family: "Raleway", sans-serif;
+  font-family: var(--main-font);
   color: var(--blk);
   margin: 20px auto;
 }
@@ -389,6 +392,21 @@ section {
   margin: 50px auto;
   max-width: 600px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  list-style: none;
+}
+
+/* Flash Messages */
+.notice {
+  text-align: left;
+  font-size: 1.2rem;
+  padding: 25px;
+  background-color: var(--lt-blue); /* Light red background for error */
+  color: var(--drk-blue);
+  border-radius: 10px;
+  margin: 30px auto;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  list-style: none;
 }
 
 .error-title {
