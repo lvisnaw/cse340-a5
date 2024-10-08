@@ -17,6 +17,7 @@ const utilities = require("./utilities")
 const session = require("express-session")
 const pool = require("./database/")
 
+// console.log("Session Secret:", process.env.SESSION_SECRET)
 /* ***********************
  * Middleware
  *************************/
@@ -30,6 +31,8 @@ app.use(session({
   saveUninitialized: true,
   name: "sessionid",
 }))
+
+
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
