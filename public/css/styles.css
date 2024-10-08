@@ -435,6 +435,52 @@ section {
   background-color: #2980b9;
 }
 
+/* Form container styling */
+form {
+  background-color: var(--main-accent); /* Dark blue background */
+  color: var(--primary-background); /* White text color */
+  padding: 20px;
+  border-radius: 8px;
+  border: 8px solid var(--lt-blue);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Label styling */
+form label {
+  display: block;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+/* Input fields styling */
+form input, form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+/* Button styling */
+form button {
+  background-color: var(--primary-background); /* Accent color for the button */
+  color: var(--drk-blue);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #0a5a8a; /* Darker blue on hover */
+}
+
+form p, a {
+  color: var(--primary-background); /* White text color */
+}
+
 /* Responsive design: for vehicle details */
 @media (max-width: 768px) {
   #vehicle-details {
