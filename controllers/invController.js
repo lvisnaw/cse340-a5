@@ -20,7 +20,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
 }
 
 /* ***************************
- * Get individula inventory item details
+ * Get individual inventory item details
  * ************************** */
 invCont.getInventoryItemDetail = async function (req, res, next) {
   const vehicleId = req.params.id // Get vehicle ID from the URL
