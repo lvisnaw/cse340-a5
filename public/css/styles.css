@@ -12,6 +12,7 @@
   --blk: #000;
   --drk-blue: #00008B;
   --lt-blue: #82dbf9;
+  --secondary-background: #0a5a8a;
   --main-font: 'Raleway', sans-serif;
 }
 
@@ -467,6 +468,7 @@ form input, form textarea {
 form button {
   background-color: var(--primary-background); /* Accent color for the button */
   color: var(--drk-blue);
+  font-size: 1.2em;
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
@@ -475,10 +477,36 @@ form button {
 
 form button:hover {
   background-color: #0a5a8a; /* Darker blue on hover */
+  color: var(--primary-background);
+}
+
+#pswdBtn {
+  background-color: var(--primary-background); /* Accent color for the button */
+  color: var(--drk-blue); 
+  padding: 10px 20px; 
+  font-size: 1.2em;
+  border: none; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  display: inline-block; 
+}
+
+#pswdBtn:hover {
+  background-color: var(--secondary-background); /* Darker background on hover */
+  color: var(--primary-background); /* Change text color on hover */
+}
+
+/* Flexbox container for both the show password and register buttons */
+.btnContainer {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%; 
+  margin-top: 10px; 
 }
 
 form p, form a {
-  color: var(--primary-background); /* White text color */
+  color: var(--primary-background); 
 }
 
 /* Responsive design: for vehicle details */

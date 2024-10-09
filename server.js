@@ -16,6 +16,7 @@ const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities")
 const session = require("express-session")
 const pool = require("./database/")
+const bodyParser = require("body-parser")
 
 // console.log("Session Secret:", process.env.SESSION_SECRET)
 /* ***********************
@@ -39,6 +40,8 @@ app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 /* ***********************
  * View Engine and Templates
@@ -58,7 +61,7 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", inventoryRoute)
 
 // Account route
-app.use("/account", accountRoute)
+app.use("/account", require("./routes/accountRoute"))
 
 
 // ** New Route for Triggering Intentional Error **

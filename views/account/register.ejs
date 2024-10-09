@@ -1,0 +1,52 @@
+<div class="container">
+    <h1><%= title %></h1>
+
+    <% if (messages.error) { %>
+        <div class="flash-message error"><%= messages.error %></div>
+    <% } %>
+
+    <form action="/account/register" method="POST">
+        <div>
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="account_firstname" required data-trail="firstName" />
+        </div>
+
+        <div>
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="account_lastname" required data-trail="lastName" />
+        </div>
+
+        <div>
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="account_email" required data-trail="email" />
+        </div>
+       
+        <div class="showPassword">
+            <label for="pword">Password:</label>
+            <input type="password" name="account_password" id="pword" required
+              pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{12,}$"
+              title="Password must be at least 12 characters long, contain at least 1 uppercase letter, 1 number, and 1 special character.">
+          </div>
+
+        <div class="btnContainer">
+            <span id="pswdBtn" style="cursor: pointer;">Show Password</span>
+            <button class="regBtn" type="submit">Register</button>
+        </div>
+
+    </form>
+</div>
+<script>
+    const pswdBtn = document.querySelector("#pswdBtn");
+        pswdBtn.addEventListener("click", function() {
+    const pswdInput = document.getElementById("pword");
+    const type = pswdInput.getAttribute("type");
+        if (type == "password") {
+            pswdInput.setAttribute("type", "text");
+            pswdBtn.innerHTML = "Hide Password";
+        } else {
+            pswdInput.setAttribute("type", "password");
+            pswdBtn.innerHTML = "Show Password";
+        }
+    });
+</script>
+<!-- <script src="/public/js/script.js"></script> -->
