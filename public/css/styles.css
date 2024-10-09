@@ -477,7 +477,7 @@ form button:hover {
   background-color: #0a5a8a; /* Darker blue on hover */
 }
 
-form p, a {
+form p, form a {
   color: var(--primary-background); /* White text color */
 }
 
