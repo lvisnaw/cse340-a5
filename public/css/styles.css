@@ -132,7 +132,7 @@ section button:hover {
 }
 
 /* Main */
-main {
+#heroImg {
   background-image: url('/images/vehicles/delorean.jpg');
   background-size: 80%;
   background-position: top right;
