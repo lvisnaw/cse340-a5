@@ -5,20 +5,30 @@
         <div class="flash-message error"><%= messages.error %></div>
     <% } %>
 
+    <% if (errors) { %>
+        <ul class="notice">
+       <% errors.array().forEach(error => { %>
+         <li><%= error.msg %></li>
+      <%  }) %>
+       </ul>
+      <% } %>
+
     <form action="/account/register" method="POST">
+        <p>Please fill out this form to create an account.</p>
+        <p class="passwordInfo">All fields are required.</p>
         <div>
             <label for="firstName">First Name</label>
-            <input type="text" id="firstName" name="account_firstname" required data-trail="firstName" />
+            <input type="text" id="firstName" name="account_firstname" required data-trail="firstName">
         </div>
 
         <div>
             <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" name="account_lastname" required data-trail="lastName" />
+            <input type="text" id="lastName" name="account_lastname" required data-trail="lastName">
         </div>
 
         <div>
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="account_email" required data-trail="email" />
+            <input type="email" placeholder="Enter a valid email address" id="email" name="account_email" required data-trail="email">
         </div>
        
         <div class="showPassword">
@@ -26,8 +36,11 @@
             <input type="password" name="account_password" id="pword" required
               pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{12,}$"
               title="Password must be at least 12 characters long, contain at least 1 uppercase letter, 1 number, and 1 special character.">
-          </div>
+        </div>
 
+        <div>
+            <p class="passwordInfo">Password must be at least 12 characters long and include at least one uppercase letter, one number, and one special character.</p>
+        </div>
         <div class="btnContainer">
             <span id="pswdBtn" style="cursor: pointer;">Show Password</span>
             <button class="regBtn" type="submit">Register</button>

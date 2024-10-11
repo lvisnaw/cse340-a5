@@ -13,6 +13,7 @@
   --drk-blue: #00008B;
   --lt-blue: #82dbf9;
   --secondary-background: #0a5a8a;
+  --red: #e74c3c;
   --primary-font: 'Raleway', sans-serif;
   --main-font: 'Raleway', sans-serif;
 }
@@ -508,6 +509,44 @@ form button:hover {
 
 form p, form a {
   color: var(--primary-background); 
+}
+
+.passwordInfo {
+  font-style: italic;
+  font-size: .9em;
+  margin: 0 auto 20px;
+}
+
+input:required:invalid, input:focus:invalid {
+  border-left: 5px solid var(--red);
+  /* background-color: #ffe6e6; */
+  color: #a94442;
+}
+
+input:required:invalid::placeholder, input:focus:invalid::placeholder {
+  color: #a94442;
+  opacity: 0.8;
+}
+
+/* Tooltip-like error message */
+input:required:invalid::after, input:focus:invalid::after {
+  content: 'Please provide a valid input';
+  color: #a94442;
+  background-color: #ffe6e6;
+  padding: 5px;
+  border-radius: 4px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 5px;
+  font-size: 0.85rem;
+  width: auto;
+}
+
+input:required:valid {
+  border: 2px solid green;
+  background-color: #e6ffe6;
+  color: green;
 }
 
 /* Responsive design: for vehicle details */
