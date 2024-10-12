@@ -12,12 +12,15 @@ invCont.buildByClassificationId = async function (req, res, next) {
   const data = await invModel.getInventoryByClassificationId(classification_id);
   const grid = await utilities.buildClassificationGrid(data);
   let nav = await utilities.getNav();
-  const className = data[0].classification_name;
+  
+  // Check if data is empty
+  const className = data.length > 0 ? data[0].classification_name : "Unknown Classification";
 
   res.render("./inventory/classification", {
     title: className + " vehicles",
     nav,
     grid,
+    message: data.length === 0 ? "There are currently no vehicles available in this classification." : null // Message if no vehicles found
   });
 };
 
@@ -211,8 +214,8 @@ invCont.addInventory = async function (req, res, next) {
       model: inv_model,
       year: inv_year,
       classification_id,
-      image: inv_image || "path/to/no-image.jpg", // Default image path
-      thumbnail: inv_thumbnail || "path/to/no-image-tn.jpg", // Default thumbnail path
+      image: inv_image || "/images/vehicles/no-image.png", // Default image path
+      thumbnail: inv_thumbnail || "/images/vehicles/no-image-tn.png", // Default thumbnail path
       description: inv_description || '', // Add the description here
       price: inv_price || 0, // Add the price here, default to 0 if not provided
       miles: invMiles, // Use the validated miles value
