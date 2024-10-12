@@ -212,7 +212,7 @@ invCont.addInventory = async function (req, res, next) {
       year: inv_year,
       classification_id,
       image: inv_image || "path/to/no-image.jpg", // Default image path
-      thumbnail: inv_thumbnail || "path/to/no-thumbnail.jpg", // Default thumbnail path
+      thumbnail: inv_thumbnail || "path/to/no-image-tn.jpg", // Default thumbnail path
       description: inv_description || '', // Add the description here
       price: inv_price || 0, // Add the price here, default to 0 if not provided
       miles: invMiles, // Use the validated miles value
