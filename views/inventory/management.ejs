@@ -1,0 +1,27 @@
+<div class="container">
+    <h1><%= title %></h1>
+
+    <% if (messages.error) { %>
+        <div class="flash-message error"><%= messages.error %></div>
+    <% } %>
+
+    <% if (messages.success) { %>
+        <div class="flash-message success"><%= messages.success %></div>
+    <% } %>
+
+    <% if (errors && errors.length > 0) { %> <!-- Check if errors is defined and has elements -->
+        <ul class="notice">
+            <% errors.forEach(error => { %> <!-- Loop through errors directly -->
+                <li><%= error %></li>
+            <% }) %>
+        </ul>
+    <% } %>
+
+    <nav id="invNav">
+        <p>Use the links below to manage classifications and inventory items:</p>
+        <ul>
+            <li><a href="/inv/add-classification">Add New Classification</a></li>
+            <li><a href="/inv/add-inventory">Add New Inventory Item</a></li>
+        </ul>
+    </nav>
+</div>

@@ -96,6 +96,50 @@ nav ul li a:hover {
   color: #fff;
 }
 
+/* Inventory navbar */
+#invNav { /* Change from nav to #invNav */
+  background-color: var(--primary-background);
+  width: 100%;
+  padding: 5px 0;
+  box-sizing: border-box;
+}
+
+#invNav p {
+  margin-bottom: 20px;
+}
+
+/* Reset some default styles and center the navigation items */
+#invNav ul { /* Change from nav ul to #invNav ul */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: left;
+  flex-wrap: nowrap;
+}
+
+/* Style individual navigation items */
+#invNav ul li { /* Change from nav ul li to #invNav ul li */
+  margin: 0 5px;
+  white-space: nowrap;
+}
+
+#invNav ul li a { /* Change from nav ul li a to #invNav ul li a */
+  display: block;
+  padding: 8px 10px;
+  background-color: #007BFF; /* Change to your desired button color */
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+#invNav ul li a:hover { /* Change from nav ul li a:hover to #invNav ul li a:hover */
+  background-color: #0056b3; /* Change to your desired hover color */
+  color: #fff;
+}
+
 /* Section Styling */
 section {
   width: 30%; 
@@ -457,13 +501,17 @@ form label {
 }
 
 /* Input fields styling */
-form input, form textarea {
+form input, form textarea, form select {
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
   border: none;
   border-radius: 4px;
   font-size: 1em;
+}
+
+.invSelection {
+  color: var(--drk-blue);
 }
 
 /* Button styling */
@@ -517,19 +565,19 @@ form p, form a {
   margin: 0 auto 20px;
 }
 
-input:required:invalid, input:focus:invalid {
+/* Validation styles */
+input:required:invalid, input:focus:invalid, textarea:required:invalid, textarea:focus:invalid {
   border-left: 5px solid var(--red);
-  /* background-color: #ffe6e6; */
   color: #a94442;
 }
 
-input:required:invalid::placeholder, input:focus:invalid::placeholder {
+input:required:invalid::placeholder, input:focus:invalid::placeholder, textarea:required:invalid::placeholder, textarea:focus:invalid::placeholder {
   color: #a94442;
   opacity: 0.8;
 }
 
 /* Tooltip-like error message */
-input:required:invalid::after, input:focus:invalid::after {
+input:required:invalid::after, input:focus:invalid::after, textarea:required:invalid::after, textarea:focus:invalid::after {
   content: 'Please provide a valid input';
   color: #a94442;
   background-color: #ffe6e6;
@@ -543,10 +591,27 @@ input:required:invalid::after, input:focus:invalid::after {
   width: auto;
 }
 
-input:required:valid {
+input:required:valid, textarea:required:valid {
   border: 2px solid green;
   background-color: #e6ffe6;
   color: green;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  #invNav ul {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+  }
+
+  #invNav ul li {
+    margin: 10px 0; /* Space between stacked items */
+  }
+
+  #invNav ul li a {
+    width: 100%; /* Full width on mobile */
+    max-width: 300px; /* Optional: set a max width for buttons */
+  }
 }
 
 /* Responsive design: for vehicle details */

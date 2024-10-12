@@ -1,0 +1,78 @@
+<div class="container">
+    <h1>Add New Inventory Item</h1>
+
+    <% if (messages.success && messages.success.length > 0) { %>
+        <div class="flash-message success">
+            <%= messages.success.join(", ") %>
+        </div>
+    <% } %>
+
+    <% if (messages.error) { %>
+        <div class="flash-message error"><%= messages.error %></div>
+    <% } %>
+
+    <% if (errors && errors.length > 0) { %> <!-- Check if errors is an array -->
+        <ul class="notice">
+            <% errors.forEach(error => { %>
+                <li><%= error.msg %></li> <!-- Access error message -->
+            <% }) %>
+        </ul>
+    <% } %>
+
+    <form id="inventoryForm" action="/inv/add-inventory" method="POST">
+
+        <label for="classification_id" class="invForm">Classification:</label>
+        <select name="classification_id" id="classification_id" class="invSelection" required>
+            <option value="">Select Classification</option>
+            <% classificationList.forEach(classification => { %>
+                <option value="<%= classification.classification_id %>" <%= locals.classification_id == classification.classification_id ? 'selected' : '' %>><%= classification.classification_name %></option>
+            <% }) %>
+        </select>
+
+        <label for="make">Make:</label>
+        <input type="text" name="inv_make" id="make" required
+               pattern="^[a-zA-Z0-9 ]+$"
+               title="Make can only contain letters, numbers, and spaces."
+               value="<%= locals.inv_make %>"> <!-- Sticky value -->
+
+        <label for="model">Model:</label>
+        <input type="text" name="inv_model" id="model" required
+               pattern="^[a-zA-Z0-9 ]+$"
+               title="Model can only contain letters, numbers, and spaces."
+               value="<%= locals.inv_model %>"> <!-- Sticky value -->
+
+        <label for="inv_description" class="invForm">Description:</label>
+        <textarea name="inv_description" id="inv_description" class="invTextarea" required><%= locals.inv_description || '' %></textarea>
+
+        <label for="image">Image Path:</label>
+        <input type="text" name="inv_image" id="image" value="/images/no-image-available.png" required>
+
+        <label for="thumbnail">Thumbnail Path:</label>
+        <input type="text" name="inv_thumbnail" id="thumbnail" value="/images/no-image-available-thumbnail.png" required>
+
+        <label for="price">Price:</label>
+        <input type="number" name="inv_price" id="price" required min="0" step="0.01"
+               title="Price must be a positive number with no spaces or special characters."
+               value="<%= locals.inv_price %>"> <!-- Sticky value -->
+
+        <label for="year">Year:</label>
+        <input type="number" name="inv_year" id="year" required min="1886" max="2024"
+               title="Year must be between 1886 and 2024."
+               value="<%= locals.inv_year %>"> <!-- Sticky value -->
+
+        <label for="miles">Miles:</label>
+        <input type="number" name="inv_miles" id="miles" required min="0" step="1"
+               title="Miles must be a valid number with no spaces or special characters."
+               value="<%= locals.inv_miles %>"> <!-- Sticky value -->
+
+        <label for="color">Color:</label>
+        <input type="text" name="inv_color" id="color" required
+               pattern="^[a-zA-Z ]+$"
+               title="Color can only contain letters and spaces."
+               value="<%= locals.inv_color %>"> <!-- Sticky value -->
+
+        <button type="submit">Add Inventory Item</button>
+    </form>
+</div>
+
+<script src="/js/script.js"></script>
