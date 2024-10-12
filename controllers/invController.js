@@ -1,6 +1,6 @@
 const invModel = require("../models/inventory-model");
 const utilities = require("../utilities/");
-const { validationResult } = require('express-validator');
+const { body, validationResult } = require('express-validator');
 
 const invCont = {};
 
@@ -169,6 +169,30 @@ invCont.addInventory = async function (req, res, next) {
     });
   }
 
+  // Validate inv_miles to ensure it's a whole number and greater than or equal to zero
+  const invMiles = Number(req.body.inv_miles);
+  if (!Number.isInteger(invMiles) || invMiles < 0) {
+    req.flash("error", "Miles must be a valid whole number.");
+    let nav = await utilities.getNav(); // Get navigation bar for the error case
+    return res.render("./inventory/add-inventory", {
+      title: "Add New Inventory Item",
+      nav,
+      message: req.flash("notice"),
+      errors: [{ msg: "Miles must be a valid whole number." }], // Set the error message
+      locals: {
+        inv_make: req.body.inv_make || '', // Sticky value
+        inv_model: req.body.inv_model || '', // Sticky value
+        inv_year: req.body.inv_year || '', // Sticky value
+        inv_description: req.body.inv_description || '', // Sticky value for the description
+        inv_price: req.body.inv_price || '', // Sticky value for the price
+        inv_miles: req.body.inv_miles || '', // Sticky value for the miles
+        inv_color: req.body.inv_color || '', // Sticky value for the color
+        classification_id: req.body.classification_id // Sticky value
+      },
+      classificationList: await invModel.getAllClassifications() // Pass classification list on error
+    });
+  }
+
   // Proceed to insert the inventory item into the database
   const { 
     inv_make, 
@@ -178,10 +202,9 @@ invCont.addInventory = async function (req, res, next) {
     inv_image, 
     inv_thumbnail, 
     inv_description, 
-    inv_price, 
-    inv_miles, 
-    inv_color 
+    inv_price 
   } = req.body;
+
   try {
     await invModel.addInventory({
       make: inv_make,
@@ -192,8 +215,8 @@ invCont.addInventory = async function (req, res, next) {
       thumbnail: inv_thumbnail || "path/to/no-thumbnail.jpg", // Default thumbnail path
       description: inv_description || '', // Add the description here
       price: inv_price || 0, // Add the price here, default to 0 if not provided
-      miles: inv_miles || 0, // Add the miles here, default to 0 if not provided
-    color: inv_color || 'Unknown' // Add the color here, default to 'Unknown' if not provided
+      miles: invMiles, // Use the validated miles value
+      color: req.body.inv_color || 'Unknown' // Add the color here, default to 'Unknown' if not provided
     }); // Call the model function
 
     // Set success message after successful insertion
@@ -227,4 +250,5 @@ invCont.addInventory = async function (req, res, next) {
   }
 };
 
+// Export the controller
 module.exports = invCont;

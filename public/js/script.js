@@ -13,3 +13,16 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
   });
+
+  /* Miles Validation */
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('inventoryForm').addEventListener('submit', function(event) {
+        const milesInput = document.getElementById('miles');
+        // Check if the value includes a decimal point
+        if (milesInput.value.includes('.')) {
+            event.preventDefault(); // Prevent form submission
+            alert("Miles must be a whole number without decimal points."); // Display alert
+            milesInput.focus(); // Focus on the miles input
+        }
+    });
+});

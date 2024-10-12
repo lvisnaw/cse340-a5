@@ -62,7 +62,8 @@
 
         <label for="miles">Miles:</label>
         <input type="number" name="inv_miles" id="miles" required min="0" step="1"
-               title="Miles must be a valid number with no spaces or special characters."
+               pattern="^[0-9]+$"
+               title="Miles must be a whole number with no spaces or special characters." 
                value="<%= locals.inv_miles %>"> <!-- Sticky value -->
 
         <label for="color">Color:</label>
