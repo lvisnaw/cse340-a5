@@ -1,6 +1,7 @@
 // Needed resources
 const utilities = require("../utilities")
-const accountModel = require("../models/account-model");
+const accountModel = require("../models/account-model")
+const bcrypt = require("bcryptjs")
 
 /* ****************************************
 *  Deliver login view
@@ -37,12 +38,26 @@ async function registerAccount(req, res) {
 
     let nav = await utilities.getNav()
     const { account_firstname, account_lastname, account_email, account_password } = req.body
+
+    // Hash the password before storing
+    let hashedPassword;
+    try {
+        // Hash the password with a cost factor of 10
+        hashedPassword = await bcrypt.hash(account_password, 10);
+    } catch (error) {
+        req.flash("notice", 'Sorry, there was an error processing the registration.');
+        return res.status(500).render("account/register", {
+            title: "Registration",
+            nav,
+            errors: null,
+        });
+    }
   
     const regResult = await accountModel.registerAccount(
       account_firstname,
       account_lastname,
       account_email,
-      account_password
+      hashedPassword
     )
   
     if (regResult) {
@@ -63,4 +78,30 @@ async function registerAccount(req, res) {
     }
   }
 
-module.exports = { buildLogin, buildRegister, registerAccount }
+/* ****************************************
+ * Process Login
+ * *************************************** */
+async function loginAccount(req, res) {
+  const { account_email, account_password } = req.body
+  let nav = await utilities.getNav()
+
+  // Assuming you have a function to check the user's credentials
+  const loginResult = await accountModel.checkLoginCredentials(
+      account_email,
+      account_password
+  )
+
+  if (loginResult) {
+      req.flash("notice", `Welcome back ${loginResult.account_firstname}`)
+      res.status(200).redirect("/") // or render the account page
+  } else {
+      req.flash("notice", "Login failed. Please check your credentials.")
+      res.status(401).render("account/login", {
+          title: "Login",
+          nav,
+          account_email // Stick the email to the form
+      })
+  }
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, loginAccount }

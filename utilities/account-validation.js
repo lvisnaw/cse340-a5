@@ -1,6 +1,47 @@
 const utilities = require(".")
 const { body, validationResult } = require("express-validator")
+const accountModel = require("../models/account-model");
 const validate = {}
+
+/************************
+ * Login Data Validation Rules
+ * **************************/
+validate.loginRules = () => {
+    return [
+        // Email is required and must be a valid email
+        body("account_email")
+            .trim()
+            .isEmail()
+            .normalizeEmail()
+            .withMessage("Please enter a valid email address."), // on error this message is sent
+
+        // Password is required but no need to check strength here, just required
+        body("account_password")
+            .trim()
+            .notEmpty()
+            .withMessage("Please enter your password.") // on error this message is sent
+    ]
+}
+
+/************************
+ * Check login data and return errors or continue to login
+ * **************************/
+validate.checkLoginData = async (req, res, next) => {
+    const { account_email } = req.body
+    let errors = []
+    errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        res.render("account/login", {
+            errors,
+            title: "Login",
+            nav,
+            account_email
+        })
+        return
+    }
+    next()
+}
 
 /************************
  * Registration Data Validation Rules
@@ -26,11 +67,15 @@ validate.registrationRules = () => {
         // valid email is required and cannot already exist in the database
         body("account_email")
             .trim()
-            .escape()
-            .notEmpty()
             .isEmail()
             .normalizeEmail() // refer to validator.js docs
-            .withMessage("Valid Email is required"),
+            .withMessage("Valid Email is required")// on error this message is sent
+            .custom(async (account_email) => {
+                const emailExists = await accountModel.checkExistingEmail(account_email)
+                if (emailExists) {
+                    throw new Error("Email is already in use. Please login or use a different email address.")
+                }
+            }),
 
         // password is required and must be at least 12 characters long
         body("account_password")

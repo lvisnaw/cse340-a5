@@ -11,7 +11,7 @@ const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
-const accountRoute = require("./routes/accountRoute")
+const accountRoute = require("./routes/accountRoute") // Imported accountRoute
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities")
 const session = require("express-session")
@@ -33,7 +33,6 @@ app.use(session({
   name: "sessionid",
 }))
 
-
 // Express Messages Middleware
 app.use(require('connect-flash')())
 app.use(function(req, res, next){
@@ -50,7 +49,6 @@ app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
 
-
 /* ***********************
  * Routes
  *************************/
@@ -61,8 +59,7 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", inventoryRoute)
 
 // Account route
-app.use("/account", require("./routes/accountRoute"))
-
+app.use("/account", accountRoute) // Use accountRoute here
 
 // ** New Route for Triggering Intentional Error **
 app.get("/trigger-error", (req, res, next) => {

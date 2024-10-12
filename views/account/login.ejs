@@ -1,17 +1,28 @@
-    <%- messages() %>
-    <h1>Login</h1>
-    <form action="/account/login" method="post">
-        <label for="email">Email:</label>
-        <input type="email" placeholder="Enter a valid email address" id="email" name="account_email" required data-trail="email" />
+<%- messages() %>
 
-        <label for="password">Password:</label>
-        <input type="password" name="account_password" id="pword" required
-              pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{12,}$"
-              title="Password must be at least 12 characters long, contain at least 1 uppercase letter, 1 number, and 1 special character.">
+<% if (typeof errors !== "undefined" && errors.length > 0) { %>
+    <div class="error-list">
+        <ul>
+            <% errors.array().forEach(error => { %>
+                <li><%= error.msg %></li>
+            <% }) %>
+        </ul>
+    </div>
+<% } %>
 
-              <p class="passwordInfo">Password must be at least 12 characters long, contain at least 1 uppercase letter, 1 number, and 1 special character.</p>
+<h1>Login</h1>
+<form id="loginForm" action="/account/login" method="post">
+    <label for="email">Email:</label>
+    <input type="email" placeholder="Enter a valid email address" id="accountEmail" name="account_email" required value="<%= locals.account_email %>" data-trail="email" />
 
-        <button type="submit">Login</button>
+    <label for="password">Password:</label>
+    <input type="password" name="account_password" id="pword" required
+          
+          title="Password must be at least 12 characters long, contain at least 1 uppercase letter, 1 number, and 1 special character.">
 
-        <p>No Account? <a href="/account/register">Sign-up</a></p>
-    </form>
+    <p class="passwordInfo">Password must be at least 12 characters long, contain at least 1 uppercase letter, 1 number, and 1 special character.</p>
+
+    <button type="submit">Login</button>
+
+    <p>No Account? <a href="/account/register">Sign-up</a></p>
+</form>

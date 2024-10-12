@@ -18,17 +18,17 @@
         <p class="passwordInfo">All fields are required.</p>
         <div>
             <label for="firstName">First Name</label>
-            <input type="text" id="firstName" name="account_firstname" required data-trail="firstName">
+            <input type="text" id="firstName" name="account_firstname" id="accountFirstname" required value="<%= locals.account_firstname %>" data-trail="firstName">
         </div>
 
         <div>
             <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" name="account_lastname" required data-trail="lastName">
+            <input type="text" id="lastName" name="account_lastname" id="accountLastname" required value="<%= locals.account_lastname %>" data-trail="lastName">
         </div>
 
         <div>
             <label for="email">Email Address</label>
-            <input type="email" placeholder="Enter a valid email address" id="email" name="account_email" required data-trail="email">
+            <input type="email" placeholder="Enter a valid email address" name="account_email" id="accountEmail" required value="<%= locals.account_email %>" data-trail="email">
         </div>
        
         <div class="showPassword">
