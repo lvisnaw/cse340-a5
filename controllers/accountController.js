@@ -97,9 +97,12 @@ async function accountLogin(req, res, next) {
 
   // Logging for debugging
   console.log('Attempting login for:', account_email)
-  console.log('Entered password:', account_password ? 'Provided' : 'Not provided')
+  console.log('Entered password:', account_password)
 
   const accountData = await accountModel.getAccountByEmail(account_email)
+
+  console.log(await bcrypt.compare(account_password, accountData.account_password))
+  console.log(accountData.account_password)
 
   if (!accountData) {
     req.flash("notice", "Please check your credentials and try again.")
