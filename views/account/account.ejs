@@ -1,0 +1,22 @@
+<div class="account-management">
+    <h1>Account Management</h1>
+  
+    <!-- Flash messages -->
+    <% if (typeof messages !== 'undefined' && messages.success) { %>
+      <div class="alert alert-success"><%= messages.success %></div>
+    <% } %>
+    <% if (typeof messages !== 'undefined' && messages.error) { %>
+      <div class="alert alert-danger"><%= messages.error %></div>
+    <% } %>
+  
+    <!-- Display any errors -->
+    <% if (typeof errors !== 'undefined' && errors.length > 0) { %> <!-- Check if errors exist and have length -->
+      <div class="alert alert-danger">
+        <% errors.forEach(function(error) { %>
+          <p><%= error.msg %></p>
+        <% }) %>
+      </div>
+    <% } %>
+  
+    <p>You're logged in!</p>
+</div>

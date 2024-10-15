@@ -1,6 +1,6 @@
 // Needed Resources 
 const express = require("express")
-const router = new express.Router() 
+const router = new express.Router()
 const accountController = require("../controllers/accountController")
 const utilities = require("../utilities")
 const regValidate = require("../utilities/account-validation")
@@ -19,14 +19,15 @@ router.post(
     "/register", 
     regValidate.registrationRules(),
     regValidate.checkRegData,
-    utilities.handleErrors(accountController.registerAccount))
+    utilities.handleErrors(accountController.registerAccount)
+)
 
 // Process the login attempt with validation
 router.post(
     "/login",
     regValidate.loginRules(),
     regValidate.checkLoginData,
-    utilities.handleErrors(accountController.loginAccount)
+    utilities.handleErrors(accountController.accountLogin) // Using the controller-based function
 )
 
-module.exports = router
+module.exports = router;

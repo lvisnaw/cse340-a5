@@ -35,7 +35,7 @@ async function checkExistingEmail(account_email) {
 async function checkLoginCredentials(account_email, account_password) {
     try {
         // Retrieve the account with the provided email
-        const sql = "SELECT account_id, account_firstname, account_password FROM account WHERE account_email = $1"
+        const sql = "SELECT account_id, account_firstname, account_lastname, account_email, account_password FROM account WHERE account_email = $1"
         const result = await pool.query(sql, [account_email])
 
         if (result.rowCount > 0) {
@@ -58,8 +58,23 @@ async function checkLoginCredentials(account_email, account_password) {
     }
 }
 
+/* *********************************
+ * Return account data using email address
+ * ******************************* */
+async function getAccountByEmail (account_email) {
+    try {
+        const result = await pool.query(
+            "SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_email = $1",
+            [account_email])
+        return result.rows[0]
+    } catch (error) {
+        return new Error("No matching email found")
+    }
+}
+
 module.exports = {
     registerAccount,
     checkExistingEmail,
-    checkLoginCredentials
+    checkLoginCredentials,
+    getAccountByEmail
 }

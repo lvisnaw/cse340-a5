@@ -11,12 +11,13 @@ const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
-const accountRoute = require("./routes/accountRoute") // Imported accountRoute
+const accountRoute = require("./routes/accountRoute")
 const inventoryRoute = require("./routes/inventoryRoute")
-const utilities = require("./utilities")
+const utilities = require("./utilities/")
 const session = require("express-session")
 const pool = require("./database/")
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 // console.log("Session Secret:", process.env.SESSION_SECRET)
 /* ***********************
@@ -32,6 +33,8 @@ app.use(session({
   saveUninitialized: true,
   name: "sessionid",
 }))
+app.use(cookieParser())
+app.use(utilities.checkJWTToken)
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
