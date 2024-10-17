@@ -79,6 +79,33 @@ Util.buildDetailView = async function(vehicle) {
   return detailView;
 }
 
+/* **************************************
+ * Build the classification select dropdown
+ * ************************************ */
+Util.buildClassificationSelect = async function(data) {
+  let selectList = '<select id="classificationList">';
+  data.forEach(classification => {
+      selectList += `<option value="${classification.classification_id}">${classification.classification_name}</option>`;
+  });
+  selectList += '</select>';
+  return selectList;
+};
+
+/* **************************************
+ * Build the classifications list
+ * ************************************ */
+/* Added this to test if the function works
+ * It throws Error at: "/inv/": Cannot read properties of undefined (reading 'forEach')
+ * ************************************ */
+// Util.buildClassificationsList = async function (data) {
+//   let list = "<ul>";
+//   data.forEach(item => {
+//       list += `<li>${item.classification_name}</li>`;
+//   });
+//   list += "</ul>";
+//   return list;
+// };
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
@@ -106,6 +133,18 @@ Util.checkJWTToken = (req, res, next) => {
       })
   } else {
       next()
+  }
+}
+
+/* ****************************************
+ * Check login data and return errors or continue to login
+ * **************************/
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
   }
 }
 

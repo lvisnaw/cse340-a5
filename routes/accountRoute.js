@@ -6,7 +6,11 @@ const utilities = require("../utilities")
 const regValidate = require("../utilities/account-validation")
 
 // Route for the "My Account" page
-router.get("/", utilities.handleErrors(accountController.buildAccountView))
+router.get(
+    "/", 
+    utilities.checkLogin,
+    utilities.handleErrors(accountController.buildAccountView)
+)
 
 // Route for the login page
 router.get("/login", utilities.handleErrors(accountController.buildLogin))

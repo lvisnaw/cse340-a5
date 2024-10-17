@@ -24,4 +24,20 @@
             <li><a href="/inv/add-inventory">Add New Inventory Item</a></li>
         </ul>
     </nav>
+
+    <h2>Manage Inventory</h2>
+    <p>Choose a classification to see the inventory items:</p>
+
+    <!-- EJS code to display the classification select list -->
+    <%- classificationSelect %>
+
+    <!-- Empty table to display inventory items -->
+    <table id="inventoryDisplay"></table>
+
+    <!-- NoScript message -->
+    <noscript>JavaScript must be enabled to use this page.</noscript>
+
+    <!-- Link to the JavaScript file that will manage inventory updates -->
+    <script src="../../js/inventory.js"></script>
+
 </div>

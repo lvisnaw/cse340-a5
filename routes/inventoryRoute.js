@@ -17,6 +17,12 @@ router.get(
     utilities.handleErrors(invController.getInventoryItemDetail)
 );
 
+// Route to get get inventory items by classification
+router.get(
+    "/getInventory/:classification_id", 
+    utilities.handleErrors(invController.getInventoryJSON)
+);
+
 // Route to trigger an intentional error
 router.get("/trigger-error", (req, res) => {
     throw new Error("This is an intentional error for testing purposes."); 

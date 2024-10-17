@@ -1,7 +1,4 @@
 const { Pool } = require("pg");
-const invModel = require("../models/inventory-model"); // Check if this import is needed
-const jwt = require("jsonwebtoken");
-const Util = require("../utilities");
 require("dotenv").config();
 
 /* ***********************
@@ -24,7 +21,7 @@ if (process.env.NODE_ENV === "development") {
         async query(text, params) {
             try {
                 const res = await pool.query(text, params);
-                console.log("executed query", { text });
+                // console.log("executed query", { text });
                 return res;
             } catch (error) {
                 console.error("error in query", error); // Log the error directly
