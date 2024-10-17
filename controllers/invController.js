@@ -69,6 +69,7 @@ invCont.buildManagementView = async function (req, res, next) {
   res.render("./inventory/management", {
     title: "Inventory Management",
     nav,
+    classificationSelect,
     messages: {
       error: req.flash("error"),
       success: req.flash("success"),
