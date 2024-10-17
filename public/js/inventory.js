@@ -9,16 +9,16 @@ classificationList.addEventListener("change", function () {
     fetch(classIdURL)
         .then(function (response) {
             if (response.ok) {
-            return response.json();
+            return response.json()
         }
-        throw Error("Network response was not ok");
+        throw Error("Network response was not ok")
     })
         .then(function (data) {
             console.log(data);
-            buildInventoryList(data);
+            buildInventoryList(data)
         })
         .catch(function (error) {
-            console.log("There was a problem: ", error.message);
+            console.log("There was a problem: ", error.message)
         })
 })
 

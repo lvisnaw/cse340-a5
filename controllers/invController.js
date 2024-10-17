@@ -52,31 +52,40 @@ invCont.getInventoryItemDetail = async function (req, res, next) {
 /* ***************************
  * Trigger an Intentional Error
  * ************************** */
-invCont.triggerError = async function (req, res, next) {
-  throw new Error("This is an intentional error for testing purposes.");
-};
+// invCont.triggerError = async function (req, res, next) {
+//   throw new Error("This is an intentional error for testing purposes.");
+// };
 
 /* ***************************
  *  Build Management View
  * ************************** */
 invCont.buildManagementView = async function (req, res, next) {
-  let nav = await utilities.getNav() 
-  const errors = req.flash("errors") || [] // Ensure errors is an array
+  try {
+    // Get the navigation
+    let nav = await utilities.getNav(); 
+    const errors = req.flash("errors") || []; // Ensure errors is an array
 
-  // Generate classification select list
-  const classificationSelect = await utilities.buildClassificationsList()
+    // Fetch the classification data from the database model
+    const classificationData = await invModel.getClassifications();
 
-  res.render("./inventory/management", {
-    title: "Inventory Management",
-    nav,
-    classificationSelect,
-    messages: {
-      error: req.flash("error"),
-      success: req.flash("success"),
-    },
-    errors,
-  })
-}
+    // Generate the classification select list by passing the rows from classificationData
+    const classificationSelect = await utilities.buildClassificationSelect(classificationData.rows);
+
+    // Render the view
+    res.render("./inventory/management", {
+      title: "Inventory Management",
+      nav,
+      classificationSelect, // Pass the generated classification dropdown
+      messages: {
+        error: req.flash("error"),
+        success: req.flash("success"),
+      },
+      errors,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
 
 /* ***************************
  *  Get Add Classification View
