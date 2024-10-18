@@ -97,13 +97,22 @@ Util.buildClassificationSelect = async function(data) {
 /* Added this to test if the function works
  * It throws Error at: "/inv/": Cannot read properties of undefined (reading 'forEach')
  * ************************************ */
-// Util.buildClassificationsList = async function (data) {
-//   let list = "<ul>";
-//   data.forEach(item => {
-//       list += `<li>${item.classification_name}</li>`;
-//   });
-//   list += "</ul>";
-//   return list;
+Util.buildClassificationsList = async function (data) {
+  let list = "<ul>";
+  data.forEach(item => {
+      list += `<li>${item.classification_name}</li>`;
+  });
+  list += "</ul>";
+  return list;
+};
+
+/* **************************************
+ * Get the classification list from the database and build the select dropdown
+ * added this to test if the function works for edit inventory
+ * ************************************ */
+// Util.getClassificationList = async function () {
+//   const data = await invModel.getClassifications(); // Fetch the classifications
+//   return await Util.buildClassificationSelect(data.rows); // Reuse the buildClassificationSelect function
 // };
 
 /* ****************************************
