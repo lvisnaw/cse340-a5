@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>Add New Inventory Item</h1>
+    <h1>Edit Inventory Item</h1>
 
     <% if (messages.success && messages.success.length > 0) { %>
         <div class="flash-message success">
@@ -19,7 +19,7 @@
         </ul>
     <% } %>
 
-    <form id="inventoryForm" action="/inv/add-inventory" method="POST">
+    <form id="inventoryForm" action="/inv/update" method="POST">
 
         <label for="classification_id" class="invForm">Classification:</label>
         <select name="classification_id" id="classification_id" class="invSelection" required>
@@ -71,7 +71,7 @@
                title="Color can only contain letters and spaces."
                value="<%= locals.inv_color %>"> <!-- Sticky value -->
 
-        <button type="submit">Add Inventory Item</button>
+        <button type="submit">Update Inventory Item</button> <!-- Changed button text from "Add Inventory Item" to "Update Inventory Item" -->
     </form>
 </div>
 
