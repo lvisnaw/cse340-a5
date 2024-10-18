@@ -110,10 +110,10 @@ Util.buildClassificationsList = async function (data) {
  * Get the classification list from the database and build the select dropdown
  * added this to test if the function works for edit inventory
  * ************************************ */
-// Util.getClassificationList = async function () {
-//   const data = await invModel.getClassifications(); // Fetch the classifications
-//   return await Util.buildClassificationSelect(data.rows); // Reuse the buildClassificationSelect function
-// };
+Util.getClassificationList = async function () {
+  const data = await invModel.getClassifications(); // Fetch the classifications
+  return await Util.buildClassificationSelect(data.rows); // Reuse the buildClassificationSelect function
+}
 
 /* ****************************************
  * Middleware For Handling Errors
