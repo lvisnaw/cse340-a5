@@ -22,12 +22,12 @@
     <form id="inventoryForm" action="/inv/update" method="POST">
 
         <label for="classification_id" class="invForm">Classification:</label>
+
+        
         <select name="classification_id" id="classification_id" class="invSelection" required>
-            <option value="">Select Classification</option>
-            <% classificationList.forEach(classification => { %>
-                <option value="<%= classification.classification_id %>" <%= locals.classification_id == classification.classification_id ? 'selected' : '' %>><%= classification.classification_name %></option>
-            <% }) %>
+            <%= classificationSelect %>
         </select>
+        
 
         <label for="make">Make:</label>
         <input type="text" name="inv_make" id="make" required

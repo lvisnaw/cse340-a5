@@ -288,16 +288,20 @@ invCont.getEditInventoryView = async function (req, res, next) {
     let nav = await utilities.getNav()
     const itemData = await invModel.getVehicleById(inv_id)
     console.log(itemData)
+
     const classificationList = await utilities.getClassificationList()
-    
+    // console.log(classificationList)
+
     const classificationSelect = await utilities.buildClassificationGrid(itemData.classification_id)
+    console.log(classificationSelect)
+
     const itemName = `${itemData.inv_make} ${itemData.inv_model}`;
 
     // Render the edit-inventory view
     res.render("./inventory/edit-inventory", {
       title: "Edit " + itemName, // Dynamic title with Make and Model
       nav,
-      classificationSelect,
+      classificationSelect: classificationSelect,
       classificationList,
       errors: null, // No validation errors initially
       inv_id: itemData.inv_id,
@@ -316,49 +320,6 @@ invCont.getEditInventoryView = async function (req, res, next) {
     next(err) // Handle any errors
   }
 }
-
-/* ***************************
- *  NEW CODE - Build edit inventory view
- * ************************** */
-// invCont.getEditInventoryView = async function (req, res, next) {
-//   try {
-//     const inv_id = parseInt(req.params.inv_id); // Collect and store incoming inventory_id as an integer
-//     let nav = await utilities.getNav(); // Get the navigation bar
-//     const errors = req.flash("errors") || []; // Ensure errors is an array
-
-//     // Fetch the inventory item data to populate the form
-//     const itemData = await invModel.getInventoryById(inv_id); // Ensure this function exists in your model
-//     const classificationList = await invModel.getAllClassifications(); // Fetch classifications for the dropdown
-
-//     // Generate a select list for classifications
-//     const classificationSelect = await utilities.buildClassificationSelect(itemData.classification_id);
-
-//     const itemName = `${itemData.inv_make} ${itemData.inv_model}`; // Create item name for the title
-
-//     // Render the edit-inventory view with the necessary data
-//     res.render("./inventory/edit-inventory", {
-//       title: "Edit " + itemName, // Dynamic title
-//       nav,
-//       classificationList,
-//       classificationSelect,
-//       errors,
-//       inv_id: itemData.inv_id,
-//       inv_make: itemData.inv_make,
-//       inv_model: itemData.inv_model,
-//       inv_year: itemData.inv_year,
-//       inv_description: itemData.inv_description,
-//       inv_image: itemData.inv_image,
-//       inv_thumbnail: itemData.inv_thumbnail,
-//       inv_price: itemData.inv_price,
-//       inv_miles: itemData.inv_miles,
-//       inv_color: itemData.inv_color,
-//       classification_id: itemData.classification_id,
-//       // Add other item properties as needed
-//     });
-//   } catch (err) {
-//     next(err); // Handle any errors
-//   }
-// }
 
 // Export the controller
 module.exports = invCont;
