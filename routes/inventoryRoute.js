@@ -56,7 +56,7 @@ router.get(
     utilities.handleErrors(invController.getAddInventoryView)
 )
 
-// ** New POST Route to Add Inventory Item **
+// New POST Route to Add Inventory Item
 router.post('/add-inventory', [
     body('inv_make').trim().notEmpty().withMessage('Make cannot be empty.'),
     body('inv_model').trim().notEmpty().withMessage('Model cannot be empty.'),
@@ -75,6 +75,9 @@ router.post('/edit/:inv_id', [
     body('inv_year').isInt({ min: 1886 }).withMessage('Year must be a valid integer greater than 1886.'),
     body('classification_id').notEmpty().withMessage('You must select a classification.'),
 ], utilities.handleErrors(invController.getEditInventoryView)); // Ensure this method exists in the controller
+
+// New post route to update inventory
+router.post('/update/', invController.updateInventory)
 
 router.delete('/delete/:inv_id', 
     utilities.handleErrors(invController.deleteInventory)

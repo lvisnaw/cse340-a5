@@ -93,7 +93,7 @@ Util.buildDetailView = async function(vehicle) {
 
 // New buildClassificationSelect function
 Util.buildClassificationSelect = async function(data, selectedClassificationId) {
-  let selectList = '<select name="classification_id" id="classification_id" class="invSelection" required>';
+  let selectList = '<select name="classificationList" id="classificationList" class="invSelection" required>';
   selectList += '<option value="">Select Classification</option>'; // Optional default option
   
   data.forEach(classification => {
@@ -116,14 +116,24 @@ Util.buildClassificationSelect = async function(data, selectedClassificationId) 
 /* Added this to test if the function works
  * It throws Error at: "/inv/": Cannot read properties of undefined (reading 'forEach')
  * ************************************ */
-Util.buildClassificationsList = async function (data) {
-  let list = "<ul>";
-  data.forEach(item => {
-      list += `<li>${item.classification_name}</li>`;
-  });
-  list += "</ul>";
-  return list;
-};
+Util.buildClassificationList = async function (classification_id = null) {
+  let data = await invModel.getClassifications()
+  let classificationList =
+    '<select name="classification_id" id="classificationList" required>'
+  classificationList += "<option value=''>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    classificationList += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      classificationList += " selected "
+    }
+    classificationList += ">" + row.classification_name + "</option>"
+  })
+  classificationList += "</select>"
+  return classificationList
+}
 
 /* **************************************
  * Get the classification list from the database and build the select dropdown
@@ -133,21 +143,6 @@ Util.getClassificationList = async function () {
   const data = await invModel.getClassifications(); // Fetch the classifications
   return await Util.buildClassificationSelect(data.rows); // Reuse the buildClassificationSelect function
 }
-
-// New getClassificationList function test
-// Util.getClassificationList = async function () {
-//   const data = await invModel.getClassifications(); // Fetch the classifications
-//   console.log('Classifications Data:', data); // Check the output
-  
-//   // Check if rows is an array
-//   if (!Array.isArray(data.rows)) {
-//       console.error('data.rows is not an array:', data.rows);
-//       return []; // Return an empty array if not an array
-//   }
-
-//   return await Util.buildClassificationSelect(data.rows); // Reuse the buildClassificationSelect function
-// }
-
 
 /* ****************************************
  * Middleware For Handling Errors

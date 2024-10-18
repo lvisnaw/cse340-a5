@@ -21,13 +21,8 @@
 
     <form id="inventoryForm" action="/inv/update" method="POST">
 
-        <label for="classification_id" class="invForm">Classification:</label>
-
-        
-        
-            <%= classificationSelect %>
-        
-        
+        <label for="classificationList">Classification</label>
+          <%- classificationSelect %>       
 
         <label for="make">Make:</label>
         <input type="text" name="inv_make" id="make" required
@@ -71,7 +66,12 @@
                title="Color can only contain letters and spaces."
                value="<%= locals.inv_color %>"> <!-- Sticky value -->
 
-        <button type="submit">Update Inventory Item</button> <!-- Changed button text from "Add Inventory Item" to "Update Inventory Item" -->
+        <button type="submit">Update Inventory Item</button>
+
+        <input type="hidden" name="inv_id"
+        <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+        <% } %>>
+        
     </form>
 </div>
 

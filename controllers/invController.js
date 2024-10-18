@@ -289,11 +289,9 @@ invCont.getEditInventoryView = async function (req, res, next) {
     const itemData = await invModel.getVehicleById(inv_id)
     console.log(itemData)
 
-    const classificationList = await utilities.getClassificationList()
-    // console.log(classificationList)
-
-    const classificationSelect = await utilities.buildClassificationGrid(itemData.classification_id)
-    console.log(classificationSelect)
+    const classificationSelect = await utilities.buildClassificationList(itemData.classification_id)
+    console.log('classificationSelect', classificationSelect)
+    console.log('type of classificationSelect', typeof classificationSelect)
 
     const itemName = `${itemData.inv_make} ${itemData.inv_model}`;
 
@@ -301,8 +299,7 @@ invCont.getEditInventoryView = async function (req, res, next) {
     res.render("./inventory/edit-inventory", {
       title: "Edit " + itemName, // Dynamic title with Make and Model
       nav,
-      classificationSelect: classificationSelect,
-      classificationList,
+      classificationSelect,
       errors: null, // No validation errors initially
       inv_id: itemData.inv_id,
       inv_make: itemData.inv_make,
