@@ -4,6 +4,7 @@ const router = new express.Router();
 const invController = require("../controllers/invController");
 const utilities = require("../utilities");
 const { body } = require('express-validator'); // Import express-validator for validation
+const validate = require("../utilities/inventory-validation");
 
 // Route to build inventory by classification view
 router.get(
@@ -78,6 +79,16 @@ router.post('/edit/:inv_id', [
 
 // New post route to update inventory
 router.post('/update/', invController.updateInventory)
+
+// New post route to delete inventory CODE REVISION
+// New POST Route to Update Inventory Item
+router.post('/edit/:inv_id', [
+    body('inv_make').trim().notEmpty().withMessage('Make cannot be empty.'),
+    body('inv_model').trim().notEmpty().withMessage('Model cannot be empty.'),
+    body('inv_year').isInt({ min: 1886 }).withMessage('Year must be a valid integer greater than 1886.'),
+    body('classification_id').notEmpty().withMessage('You must select a classification.'),
+    // Add other fields as necessary for the update
+], utilities.handleErrors(invController.updateInventory)); // Ensure this method exists in the controller
 
 router.delete('/delete/:inv_id', 
     utilities.handleErrors(invController.deleteInventory)

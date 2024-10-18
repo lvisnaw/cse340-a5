@@ -82,16 +82,6 @@ Util.buildDetailView = async function(vehicle) {
 /* **************************************
  * Build the classification select dropdown
  * ************************************ */
-// Util.buildClassificationSelect = async function(data) {
-//   let selectList = '<select id="classificationList">';
-//   data.forEach(classification => {
-//       selectList += `<option value="${classification.classification_id}">${classification.classification_name}</option>`;
-//   });
-//   selectList += '</select>';
-//   return selectList;
-// };
-
-// New buildClassificationSelect function
 Util.buildClassificationSelect = async function(data, selectedClassificationId) {
   let selectList = '<select name="classificationList" id="classificationList" class="invSelection" required>';
   selectList += '<option value="">Select Classification</option>'; // Optional default option
