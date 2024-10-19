@@ -1,0 +1,51 @@
+<div class="container">
+    <h1>Delete Inventory Item</h1>
+
+    <%- messages() %>
+
+    <% if (messages.success && messages.success.length > 0) { %>
+        <div class="flash-message success">
+            <%= messages.success.join(", ") %>
+        </div>
+    <% } %>
+
+    <% if (messages.error) { %>
+        <div class="flash-message error"><%= messages.error %></div>
+    <% } %>
+
+    <% if (errors && errors.length > 0) { %> <!-- Check if errors is an array -->
+        <ul class="notice">
+            <% errors.forEach(error => { %>
+                <li><%= error.msg %></li> <!-- Access error message -->
+            <% }) %>
+        </ul>
+    <% } %>
+
+    <form id="inventoryForm" action="/inv/delete" method="POST">
+        <p>Confirm Deletion - The delete is permanent.</p>
+             
+        <label for="make">Make:</label>
+        <input type="text" name="inv_make" id="make" readonly
+               value="<%= locals.inv_make %>"> <!-- Readonly value -->
+
+        <label for="model">Model:</label>
+        <input type="text" name="inv_model" id="model" readonly
+               value="<%= locals.inv_model %>"> <!-- Readonly value -->
+
+        <label for="price">Price:</label>
+        <input type="number" name="inv_price" id="price" readonly
+               value="<%= locals.inv_price %>"> <!-- Readonly value -->
+
+        <label for="year">Year:</label>
+        <input type="number" name="inv_year" id="year" readonly
+               value="<%= locals.inv_year %>"> <!-- Readonly value -->
+
+        <button type="submit">Delete Inventory Item</button>
+
+        <input type="hidden" name="inv_id"
+        <% if(locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %>>
+        
+    </form>
+</div>
+
+<script src="/js/script.js"></script>

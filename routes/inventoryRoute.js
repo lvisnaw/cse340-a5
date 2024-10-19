@@ -81,8 +81,18 @@ router.post('/edit/:inv_id', [
 // New post route to update inventory
 router.post('/update/', invController.updateInventory)
 
-router.delete('/delete/:inv_id', 
-    utilities.handleErrors(invController.deleteInventory)
+// GET route for delete confirmation
+router.get('/delete/:inv_id', 
+    utilities.handleErrors(invController.getDeleteInventoryView)
 )
+
+// POST route for deleting an inventory item
+router.post('/delete/', 
+    utilities.handleErrors(invController.deleteInventoryItem)
+)
+
+// router.delete('/delete/:inv_id', 
+//     utilities.handleErrors(invController.deleteInventory)
+// )
 
 module.exports = router;

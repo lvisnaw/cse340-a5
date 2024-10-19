@@ -386,6 +386,59 @@ invCont.updateInventory = async function (req, res, next) {
   } catch (err) {
     next(err); // Handle any errors that occur
   }
+}
+
+// Deliver the delete confirmation view
+invCont.getDeleteInventoryView = async function(req, res, next) {
+  try {
+    const inv_id = parseInt(req.params.inv_id); // Collect the inv_id from the request
+    const inventoryItem = await invModel.getVehicleById(inv_id); // Get the inventory item data from the model
+    const nav = await utilities.getNav(); // Build the navigation for the view
+    
+    if (!inventoryItem) {
+      req.flash("error", "Vehicle not found.");
+      return res.redirect("/inv/");
+    }
+
+    // Build the name variable for the title
+    const itemName = `${inventoryItem.inv_make} ${inventoryItem.inv_model}`;
+
+    // Render the delete confirmation view with populated data
+    res.render("inventory/delete-confirm", {
+      title: `Delete ${itemName}`, // Title showing the vehicle's make and model
+      nav,
+      errors: null,
+      inv_id: inventoryItem.inv_id,       // Populate the ID
+      inv_make: inventoryItem.inv_make,   // Populate the make
+      inv_model: inventoryItem.inv_model, // Populate the model
+      inv_year: inventoryItem.inv_year,   // Populate the year
+      inv_price: inventoryItem.inv_price  // Populate the price
+    });
+  } catch (err) {
+    next(err); // Handle errors
+  }
+};
+
+/* ***************************
+ *  Delete Inventory Item
+ * ************************** */
+invCont.deleteInventoryItem = async function(req, res, next) {
+  try {
+    const inv_id = parseInt(req.body.inv_id); // Collect inv_id from request body
+    const deleteResult = await invModel.deleteInventoryItem(inv_id); // Call model function to delete the item
+
+    // Check if the delete was successful
+    if (deleteResult.rowCount) {
+      req.flash("success", "The inventory item was successfully deleted.");
+      res.redirect("/inv/"); // Redirect to inventory management view
+    } else {
+      // Handle the case where the delete failed
+      req.flash("error", "Sorry, the deletion failed.");
+      res.redirect(`/inv/delete/${inv_id}`); // Redirect back to delete confirmation view
+    }
+  } catch (err) {
+    next(err); // Pass error to the error handler
+  }
 };
 
 // Export the controller
