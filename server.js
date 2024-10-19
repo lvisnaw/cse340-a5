@@ -31,21 +31,21 @@ app.use(session({
   }),
   secret: process.env.SESSION_SECRET,
   resave: true,
-  saveUninitialized: true,
+  saveUninitialized: true, // Consider setting this to false
   name: "sessionid",
 }))
 app.use(cookieParser())
 app.use(utilities.checkJWTToken)
 app.use(flash())
-// app.use((req, res, next) => {
-//   res.locals.successMessage = req.flash('success')
-//   res.locals.errorMessage = req.flash('error')
-//   res.locals.noticeMessage = req.flash('notice')
-//   next()
-// })
+app.use((req, res, next) => {
+  res.locals.successMessage = req.flash('success')
+  res.locals.errorMessage = req.flash('error')
+  res.locals.noticeMessage = req.flash('notice')
+  next()
+})
 
 // Express Messages Middleware
-app.use(require('connect-flash')())
+// app.use(require('connect-flash')()) // This is a duplicate from line 39
 app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()

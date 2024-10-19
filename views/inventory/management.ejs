@@ -3,25 +3,15 @@
 
     <%- messages() %>
 
-    <% if (messages.error) { %>
-        <div class="flash-message error"><%= messages.error %></div>
-    <% } %>
-
-    <% if (messages.success) { %>
-        <div class="flash-message success"><%= messages.success %></div>
-    <% } %>
-
-    <% if (messages.notice) { %>
-        <div class="flash-message success"><%= messages.notice %></div>
-    <% } %>
-
-    <% if (errors && errors.length > 0) { %> <!-- Check if errors is defined and has elements -->
-        <ul class="notice">
-            <% errors.forEach(error => { %> <!-- Loop through errors directly -->
-                <li><%= error %></li>
-            <% }) %>
-        </ul>
-    <% } %>
+    <% if (successMessage.length > 0) { %>
+        <div class="alert alert-success">
+          <%= successMessage %>
+        </div>
+      <% } %>
+      
+      <% if (errorMessage.length > 0) { %>
+        <div class="flash-message error"><%= errorMessage %></div>
+      <% } %>
 
     <nav id="invNav">
         <p>Use the links below to manage classifications and inventory items:</p>
