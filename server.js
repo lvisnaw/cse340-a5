@@ -18,6 +18,7 @@ const session = require("express-session")
 const pool = require("./database/")
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
+const flash = require("connect-flash")
 
 // console.log("Session Secret:", process.env.SESSION_SECRET)
 /* ***********************
@@ -35,6 +36,13 @@ app.use(session({
 }))
 app.use(cookieParser())
 app.use(utilities.checkJWTToken)
+app.use(flash())
+// app.use((req, res, next) => {
+//   res.locals.successMessage = req.flash('success')
+//   res.locals.errorMessage = req.flash('error')
+//   res.locals.noticeMessage = req.flash('notice')
+//   next()
+// })
 
 // Express Messages Middleware
 app.use(require('connect-flash')())

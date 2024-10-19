@@ -72,14 +72,16 @@ invCont.buildManagementView = async function (req, res, next) {
     const classificationSelect = await utilities.buildClassificationSelect(classificationData.rows);
 
     // Render the view
+    console.log(req.flash());
     res.render("./inventory/management", {
       title: "Inventory Management",
       nav,
       classificationSelect, // Pass the generated classification dropdown
-      messages: {
-        error: req.flash("error"),
-        success: req.flash("success"),
-      },
+      // messages: {
+      //   error: req.flash("error"),
+      //   success: req.flash("success"),
+      //   notice: req.flash("notice"),
+      // },
       errors,
     });
   } catch (err) {
@@ -222,18 +224,18 @@ invCont.addInventory = async function (req, res, next) {
   } = req.body;
 
   try {
-    await invModel.addInventory({
-      make: inv_make,
-      model: inv_model,
-      year: inv_year,
+    await invModel.addInventory(
+      inv_make,
+      inv_model,
+      inv_year,
       classification_id,
-      image: inv_image || "/images/vehicles/no-image.png", // Default image path
-      thumbnail: inv_thumbnail || "/images/vehicles/no-image-tn.png", // Default thumbnail path
-      description: inv_description || '', // Add the description here
-      price: inv_price || 0, // Add the price here, default to 0 if not provided
-      miles: invMiles, // Use the validated miles value
-      color: req.body.inv_color || 'Unknown' // Add the color here, default to 'Unknown' if not provided
-    }); // Call the model function
+      inv_image || "/images/vehicles/no-image.png", // Default image path
+      inv_thumbnail || "/images/vehicles/no-image-tn.png", // Default thumbnail path
+      inv_description || '', // Add the description here
+      inv_price || 0, // Add the price here, default to 0 if not provided
+      invMiles, // Use the validated miles value
+      req.body.inv_color || 'Unknown' // Add the color here, default to 'Unknown' if not provided
+    ); // Call the model function
 
     // Set success message after successful insertion
     req.flash("success", "Inventory item added successfully!");
@@ -356,13 +358,13 @@ invCont.updateInventory = async function (req, res, next) {
     // Check if the update was successful
     if (updateResult) {
       const itemName = `${updateResult.inv_make} ${updateResult.inv_model}`;
-      req.flash("notice", `The ${itemName} was successfully updated.`);
+      req.flash("success", `The ${itemName} was successfully updated.`);
       res.redirect("/inv/");
     } else {
       // Handle the case where the update failed
       const classificationSelect = await utilities.buildClassificationList(classification_id);
       const itemName = `${inv_make} ${inv_model}`;
-      req.flash("notice", "Sorry, the update failed.");
+      req.flash("error", "Sorry, the update failed.");
       res.status(501).render("inventory/edit-inventory", {
         title: "Edit " + itemName,
         nav,

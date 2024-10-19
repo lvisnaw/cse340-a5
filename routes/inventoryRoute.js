@@ -53,7 +53,8 @@ router.post('/add-classification', [
 
 // Route to display the add inventory form
 router.get(
-    "/add-inventory", 
+    "/add-inventory",
+    validate.inventoryRules(), // Added to test validation
     utilities.handleErrors(invController.getAddInventoryView)
 )
 
@@ -79,16 +80,6 @@ router.post('/edit/:inv_id', [
 
 // New post route to update inventory
 router.post('/update/', invController.updateInventory)
-
-// New post route to delete inventory CODE REVISION
-// New POST Route to Update Inventory Item
-router.post('/edit/:inv_id', [
-    body('inv_make').trim().notEmpty().withMessage('Make cannot be empty.'),
-    body('inv_model').trim().notEmpty().withMessage('Model cannot be empty.'),
-    body('inv_year').isInt({ min: 1886 }).withMessage('Year must be a valid integer greater than 1886.'),
-    body('classification_id').notEmpty().withMessage('You must select a classification.'),
-    // Add other fields as necessary for the update
-], utilities.handleErrors(invController.updateInventory)); // Ensure this method exists in the controller
 
 router.delete('/delete/:inv_id', 
     utilities.handleErrors(invController.deleteInventory)

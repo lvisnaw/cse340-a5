@@ -1,6 +1,8 @@
 <div class="container">
     <h1>Edit Inventory Item</h1>
 
+    <%- messages() %>
+
     <% if (messages.success && messages.success.length > 0) { %>
         <div class="flash-message success">
             <%= messages.success.join(", ") %>
@@ -40,10 +42,10 @@
         <textarea name="inv_description" id="inv_description" class="invTextarea" required><%= locals.inv_description || '' %></textarea>
 
         <label for="image">Image Path:</label>
-        <input type="text" name="inv_image" id="image" value="/images/vehicles/no-image.png" required>
+        <input type="text" name="inv_image" id="image" value="<%= locals.inv_image %>" required>
 
         <label for="thumbnail">Thumbnail Path:</label>
-        <input type="text" name="inv_thumbnail" id="thumbnail" value="/images/vehicles/no-image-tn.png" required>
+        <input type="text" name="inv_thumbnail" id="thumbnail" value="<%= locals.inv_thumbnail %>" required>
 
         <label for="price">Price:</label>
         <input type="number" name="inv_price" id="price" required min="0" step="0.01"

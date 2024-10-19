@@ -76,7 +76,7 @@ async function addClassification(classification_name) {
 /* ***************************
  *  Add a new inventory item to the database
  * ************************** */
-async function addInventory({ 
+async function addInventory( 
       make, 
       model, 
       year, 
@@ -86,7 +86,7 @@ async function addInventory({
       price, 
       miles, 
       color 
-    }) {
+    ) {
   try {
     // Insert the new inventory item into the database, including the miles and color
     const result = await pool.query(
@@ -104,7 +104,7 @@ async function addInventory({
 /* ***************************
  *  Update an inventory item to the database
  * ************************** */
-async function updateInventory({ 
+async function updateInventory(
     inv_id,
     inv_make,
     inv_model,
@@ -116,8 +116,22 @@ async function updateInventory({
     inv_miles,
     inv_color,
     classification_id 
-  }) {
+  ) {
   try {
+    console.log(
+    inv_id,
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+      classification_id
+    )
+
     const sql = 
     "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *";
     
