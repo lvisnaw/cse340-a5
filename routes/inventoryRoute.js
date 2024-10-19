@@ -25,9 +25,9 @@ router.get(
 );
 
 // Route to trigger an intentional error
-router.get("/trigger-error", (req, res) => {
-    throw new Error("This is an intentional error for testing purposes."); 
-}); 
+// router.get("/trigger-error", (req, res) => {
+//     throw new Error("This is an intentional error for testing purposes."); 
+// }); 
 
 // Route to display the management view
 router.get(
