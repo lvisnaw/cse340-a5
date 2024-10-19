@@ -45,13 +45,32 @@ app.use((req, res, next) => {
 })
 
 // Express Messages Middleware
-// app.use(require('connect-flash')()) // This is a duplicate from line 39
 app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+/* ***********************
+ * Express Error Handler
+ * Place after all other middleware
+ * *************************/
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav()
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  let message;
+  if (err.status == 404) { 
+      message = err.message; 
+  } else { 
+      message = 'Oh no! There was a crash. Maybe try a different route?'; 
+  }
+  res.render("errors/error", {
+    title: err.status || 'Server Error',
+    message,
+    nav
+  })
+})
 
 /* ***********************
  * View Engine and Templates
@@ -81,26 +100,6 @@ app.get("/trigger-error", (req, res, next) => {
 // 404 Page
 app.use(async (req, res, next) => {
   next({ status: 404, message: "Sorry, we appear to have lost that page." })
-})
-
-/* ***********************
- * Express Error Handler
- * Place after all other middleware
- * *************************/
-app.use(async (err, req, res, next) => {
-  let nav = await utilities.getNav()
-  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  let message;
-  if (err.status == 404) { 
-      message = err.message; 
-  } else { 
-      message = 'Oh no! There was a crash. Maybe try a different route?'; 
-  }
-  res.render("errors/error", {
-    title: err.status || 'Server Error',
-    message,
-    nav
-  })
 })
 
 /* ***********************
