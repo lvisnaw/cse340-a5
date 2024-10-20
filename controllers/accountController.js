@@ -210,7 +210,8 @@ async function buildAccountUpdateView(req, res, next) {
     const accountData = await accountModel.getAccountById(account_id); // Fetch account data from DB
 
     // logging for debugging - use JSON.stringify for better readability
-    console.log("Account Data:", JSON.stringify(accountData, null, 2));
+    console.log("Account Data before render:", accountData);
+    console.log("Type of Account Data:", typeof accountData);
 
     res.render("account/update-account", {
       title: "Update Account Information",

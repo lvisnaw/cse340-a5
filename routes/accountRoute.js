@@ -44,9 +44,13 @@ router.post(
 // Route to deliver the account update view
 router.get(
     "/update/:account_id",
+    (req, res, next) => {
+      console.log("Middleware: checkLogin triggered");
+      next();
+    },
     utilities.checkLogin,
     utilities.handleErrors(accountController.buildAccountUpdateView)
-)
+  )
 
 /* ****************************************
  *  Process Account Update
