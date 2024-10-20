@@ -140,6 +140,19 @@ Util.getClassificationList = async function () {
  * General Error Handling
  **************************************** */
 Util.handleErrors = (fn) => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+// NEW ERROR HANDLER
+// Util.handleErrors = (fn) => (req, res, next) => {
+//   // Wrap the function in a promise to catch any errors
+//   Promise.resolve(fn(req, res, next)).catch((err) => {
+//       // Log the error for debugging
+//       console.error(err);
+
+//       // Send a generic error response or customize it based on the error
+//       res.status(err.status || 500).send({
+//           error: err.message || 'Something went wrong!',
+//       });
+//   });
+// };
 
 /* ***********************
  * Middleware to check token validity

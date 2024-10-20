@@ -1,21 +1,33 @@
 <div class="account-management">
-    <h1>Account Management</h1>
+  <h1>Account Management</h1>
 
-    <!-- Flash messages -->
-    <% if (typeof messages !== 'undefined' && messages.success) { %>
-      <div class="alert alert-success"><%= messages.success %></div>
-    <% } %>
-    <% if (typeof messages !== 'undefined' && messages.error) { %>
-      <div class="alert alert-danger"><%= messages.error %></div>
-    <% } %>
+  <!-- Flash messages -->
+  <% if (typeof messages !== 'undefined' && messages.success) { %>
+    <div class="alert alert-success"><%= messages.success %></div>
+  <% } %>
+  <% if (typeof messages !== 'undefined' && messages.error) { %>
+    <div class="alert alert-danger"><%= messages.error %></div>
+  <% } %>
 
-    <% if (errors) { %>
-      <ul class="notice">
-      <% errors.array().forEach(error => { %>
-          <li><%= error.msg %></li>
-      <%  }) %>
-      </ul>
-    <% } %>
+  <% if (errors) { %>
+    <ul class="notice">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <%  }) %>
+    </ul>
+  <% } %>
 
-    <p>You're logged in!</p>
+  <p>You're logged in!</p>
+
+  <!-- Greet the user based on account type -->
+  <h2>Welcome <%= user.account_firstname %></h2>
+  <p>You're logged in as an <%= user.account_type %> account.</p>
+  
+  <% if (user.account_type === 'Employee' || user.account_type === 'Admin') { %>
+    <h3>Inventory Management</h3>
+    <p><a href="/inv/" class="btn btn-primary">Access Inventory Management</a></p>
+  <% } %>
+
+  <!-- Update account information link -->
+  <p><a href="/accounts/update-account/<%= user.account_id %>" class="btn btn-secondary">Update Account Information</a></p>
 </div>
