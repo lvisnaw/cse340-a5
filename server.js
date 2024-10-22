@@ -35,14 +35,23 @@ app.use(session({
   name: "sessionid",
 }))
 app.use(cookieParser())
-app.use(utilities.checkJWTToken)
 app.use(flash())
+app.use(utilities.checkJWTToken)
+
+// Flash message middleware
 app.use((req, res, next) => {
   res.locals.successMessage = req.flash('success')
   res.locals.errorMessage = req.flash('error')
   res.locals.noticeMessage = req.flash('notice')
+
+  // Log the contents of res.locals to see what's being stored
+  console.log("res.locals at middleware:", res.locals)
+
   next()
 })
+
+// app.use("/inv", inventoryRoute)
+// app.use("/account", accountRoute) /* This is crashing my site. */
 
 // Express Messages Middleware
 app.use(function(req, res, next){

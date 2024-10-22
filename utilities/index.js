@@ -159,21 +159,33 @@ Util.handleErrors = (fn) => (req, res, next) => Promise.resolve(fn(req, res, nex
  *************************/
 Util.checkJWTToken = (req, res, next) => {
   if (req.cookies.jwt) {
-      jwt.verify(
-        req.cookies.jwt, 
-        process.env.ACCESS_TOKEN_SECRET, 
-        function (err, accountData) {
-          if (err) {
-              req.flash("Please log in.")
-              res.clearCookie("jwt");
-              return res.redirect("/account/login")
-          }
-          res.locals.accountData = accountData
-          res.locals.loggedin = 1
-          next()
-      })
+    jwt.verify(
+      req.cookies.jwt, 
+      process.env.ACCESS_TOKEN_SECRET, 
+      (err, accountData) => {
+        if (err) {
+          // Log the error for better understanding of why verification failed
+          console.error("JWT verification error:", err);
+
+          req.flash("notice", "Please log in.");
+          res.clearCookie("jwt");
+          return res.redirect("/account/login");
+        }
+
+        // Log the decoded account data to verify its contents
+        console.log("Decoded JWT Data:", accountData);
+
+        // Set account data and logged-in status
+        res.locals.accountData = accountData;
+        res.locals.loggedin = true;
+
+        // Proceed to the next middleware or route
+        next();
+      }
+    );
   } else {
-      next()
+    // If no JWT cookie is present, proceed without setting account data
+    next();
   }
 }
 
@@ -188,5 +200,34 @@ Util.checkLogin = (req, res, next) => {
     return res.redirect("/account/login")
   }
 }
+
+/* ****************************************
+ * Middleware to Check Account Type
+ * Only allows access if the account type matches one of the required roles
+ * **************************/
+Util.checkAccountType = (requiredTypes) => {
+  return (req, res, next) => {
+    const accountData = req.session.accountData; // Get user data from session
+
+    // Log account data and required types for debugging
+    console.log('Account Data in checkAccountType:', accountData);
+    console.log('Required Types:', requiredTypes);
+
+    // Check if accountData exists and matches required account types
+    if (
+      accountData &&
+      Array.isArray(requiredTypes) &&
+      requiredTypes.map(type => type.toLowerCase()).includes(accountData.account_type.toLowerCase())
+    ) {
+      console.log('User has access, proceeding...');
+      next(); // User has the correct role, proceed to the next middleware or route handler
+    } else {
+      console.log('User does not have permission, redirecting...');
+      req.flash('notice', 'You do not have permission to access this page.');
+      res.redirect('/account/login'); // Redirect to the login page if unauthorized
+    }
+  };
+};
+
 
 module.exports = Util

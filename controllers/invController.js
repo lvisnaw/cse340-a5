@@ -68,26 +68,27 @@ invCont.buildManagementView = async function (req, res, next) {
     // Fetch the classification data from the database model
     const classificationData = await invModel.getClassifications();
 
+    // Logging for debugging
+    console.log("Classification Data:", classificationData.rows);
+
     // Generate the classification select list by passing the rows from classificationData
     const classificationSelect = await utilities.buildClassificationSelect(classificationData.rows);
 
-    // Render the view
-    console.log(req.flash());
-    res.render("./inventory/management", {
+    // Logging for debugging
+    console.log("Rendering Inventory Management View with Classification Select:", classificationSelect);
+
+    // Render the view with the correct path
+    res.render("inventory/management", {
       title: "Inventory Management",
       nav,
       classificationSelect, // Pass the generated classification dropdown
-      // messages: {
-      //   error: req.flash("error"),
-      //   success: req.flash("success"),
-      //   notice: req.flash("notice"),
-      // },
-      errors,
+      errors, // Pass errors if any
     });
   } catch (err) {
+    console.error("Error in buildManagementView:", err);
     next(err);
   }
-};
+}
 
 /* ***************************
  *  Get Add Classification View

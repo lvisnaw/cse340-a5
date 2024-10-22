@@ -161,7 +161,8 @@ async function accountLogin(req, res, next) {
 function logout(req, res, next) {
   // Set a flash message before destroying the session
   req.flash("notice", "You have successfully logged out.");
-  
+  console.log("Flash message:", req.flash("notice"));
+
   // Clear session data and cookies
   req.session.destroy((err) => {
     if (err) {
