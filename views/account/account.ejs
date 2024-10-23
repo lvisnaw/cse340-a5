@@ -2,11 +2,8 @@
   <h1>Account Management</h1>
 
   <!-- Flash messages -->
-  <% if (typeof messages !== 'undefined' && messages.success) { %>
-    <div class="alert alert-success"><%= messages.success %></div>
-  <% } %>
-  <% if (typeof messages !== 'undefined' && messages.error) { %>
-    <div class="alert alert-danger"><%= messages.error %></div>
+  <% if (noticeMessage && noticeMessage.length > 0) { %>
+    <div class="flash-message notice"><%= noticeMessage %></div>
   <% } %>
 
   <% if (errors) { %>

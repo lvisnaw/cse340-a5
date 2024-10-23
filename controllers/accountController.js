@@ -159,6 +159,9 @@ async function accountLogin(req, res, next) {
  *  Process Logout
  * *************************************** */
 function logout(req, res, next) {
+
+  // const message = "You have successfully logged out.";
+
   // Set a flash message before destroying the session
   req.flash("notice", "You have successfully logged out.");
   console.log("Flash message:", req.flash("notice"));
@@ -170,6 +173,7 @@ function logout(req, res, next) {
       return next(err); // Handle error during logout
     }
     res.clearCookie("jwt"); // Clear the JWT cookie
+    // req.flash("notice", message);
     return res.redirect("/"); // Redirect to homepage
   });
 }
