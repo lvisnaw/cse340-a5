@@ -20,7 +20,7 @@ async function addReview(review_text, inv_id, account_id) {
  * ************************** */
 async function getReviewsByInventoryId(inv_id) {
     try {
-        const sql = `SELECT r.review_id, r.review_text, r.review_date, a.account_firstname, a.account_lastname 
+        const sql = `SELECT r.review_id, r.review_text, r.review_date, a.account_id, a.account_firstname, a.account_lastname 
                      FROM public.review AS r
                      JOIN public.account AS a ON r.account_id = a.account_id
                      WHERE r.inv_id = $1

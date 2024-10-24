@@ -32,6 +32,11 @@ invCont.getInventoryItemDetail = async function (req, res, next) {
   const vehicleId = req.params.id; 
   const vehicleData = await invModel.getVehicleById(vehicleId);
   const reviews = await reviewModel.getReviewsByInventoryId(vehicleId); // Fetch reviews for the item
+
+  // Add console.log statements for debugging
+  console.log("Logged in:", res.locals.loggedin);
+  console.log("Account Data:", res.locals.accountData);
+  console.log("Reviews:", reviews);
   
   if (vehicleData) {
       let nav = await utilities.getNav();

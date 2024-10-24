@@ -16,24 +16,32 @@
         <!-- Reviews Section -->
         <section id="reviews">
             <h2>Reviews</h2>
-
+        
             <!-- Display Existing Reviews -->
             <% if (reviews && reviews.length > 0) { %>
                 <ul class="review-list">
                     <% reviews.forEach(function(review) { %>
                         <li class="review-item">
+                            <pre>Logged in user ID: <%= accountData ? accountData.account_id : 'Not available' %></pre>
+                            <pre>Review author ID: <%= review.account_id %></pre>
+                            
                             <p class="review-text"><%= review.review_text %></p>
                             <p class="review-author">
-                                <strong>Reviewed by:</strong> <%= review.account_firstname.charAt(0) %><%= review.account_lastname %>
+                                <strong>Reviewed by:</strong> <%= review.account_firstname %>&nbsp;<%= review.account_lastname.charAt(0) %>
                                 <span class="review-date">on <%= new Date(review.review_date).toLocaleDateString('en-US') %></span>
                             </p>
+        
+                            <!-- Show edit and delete options only if the logged-in user is the review author -->
+                            <% if (loggedin && accountData && accountData.account_id === review.account_id) { %>
+                                <a href="/inv/review/edit/<%= review.review_id %>">Edit</a>
+                            <% } %>
                         </li>
                     <% }) %>
                 </ul>
             <% } else { %>
                 <p>No reviews yet. Be the first to review this vehicle!</p>
             <% } %>
-
+        
             <!-- Add Review Form -->
             <% if (loggedin) { %>
                 <form action="/inv/detail/<%= vehicle.inv_id %>/review" method="POST" id="add-review-form">
@@ -41,13 +49,14 @@
                     <textarea name="review_text" id="review_text" rows="4" placeholder="Write your review here..." required></textarea>
                     <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>">
                     <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
-                    <p>Review as: <%= accountData.account_firstname.charAt(0) %><%= accountData.account_lastname %></p>
+                    <p>Review as: <%= accountData.account_firstname %>&nbsp;<%= accountData.account_lastname.charAt(0) %></p>
                     <button type="submit">Submit Review</button>
                 </form>
             <% } else { %>
                 <p>Please <a href="/account/login">log in</a> to add a review.</p>
             <% } %>
         </section>
+        
 
     <% } else { %>
         <h1>Vehicle not found</h1>

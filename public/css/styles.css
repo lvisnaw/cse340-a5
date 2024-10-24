@@ -308,6 +308,26 @@ h1 {
   margin-bottom: 10px;
 }
 
+section#reviews {
+  width: 100%; 
+  background-color: rgba(255, 255, 255, 0.8); 
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#reviews h2 {
+  text-align: left;
+}
+
+.review-item {
+  /* border: 1px solid var(--main-accent); */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  padding: 10px;
+  margin: 10px 0;
+}
+
 /* Responsive design: stack sections on mobile */
 @media only screen and (max-width: 768px) {
   .side-by-side {
@@ -760,6 +780,10 @@ input:required:valid, textarea:required:valid {
 
   h1, h2, h3, p {
     text-align: center; 
+  }
+
+  .review-item, p {
+    text-align: left;
   }
 
   #wrapper {

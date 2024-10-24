@@ -28,7 +28,7 @@ async function getEditReviewView(req, res, next) {
 
     if (review && review.account_id === req.session.accountData.account_id) {
         let nav = await utilities.getNav();
-        res.render("reviews/edit-review", {
+        res.render("review/edit-review", {
             title: "Edit Review",
             nav,
             review
@@ -63,8 +63,17 @@ async function deleteReview(req, res, next) {
     const review_id = req.params.review_id;
 
     try {
-        await reviewModel.deleteReview(review_id);
-        req.flash("success", "Review deleted successfully.");
+        // Fetch the review to verify ownership
+        const review = await reviewModel.getReviewById(review_id);
+
+        // Check if the review belongs to the logged-in user
+        if (review && review.account_id === req.session.accountData.account_id) {
+            await reviewModel.deleteReview(review_id);
+            req.flash("success", "Review deleted successfully.");
+        } else {
+            req.flash("error", "You cannot delete this review.");
+        }
+
         res.redirect("/account");
     } catch (error) {
         req.flash("error", "Failed to delete review.");
