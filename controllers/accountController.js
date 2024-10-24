@@ -194,7 +194,8 @@ async function buildAccountView(req, res, next) {
       nav,
       message: "You're logged in",
       errors: null, // Add if you're handling validation errors in this view
-      user: userData // Pass the user data to the view
+      user: userData, // Pass the user data to the view
+      loggedin: res.locals.loggedin
     });
   } catch (error) {
     next(error); // Pass error to error handling middleware

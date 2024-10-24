@@ -12,9 +12,46 @@
                 <p>Description: <%= vehicle.inv_description %></p>
             </div>
         </section>
+
+        <!-- Reviews Section -->
+        <section id="reviews">
+            <h2>Reviews</h2>
+
+            <!-- Display Existing Reviews -->
+            <% if (reviews && reviews.length > 0) { %>
+                <ul class="review-list">
+                    <% reviews.forEach(function(review) { %>
+                        <li class="review-item">
+                            <p class="review-text"><%= review.review_text %></p>
+                            <p class="review-author">
+                                <strong>Reviewed by:</strong> <%= review.account_firstname.charAt(0) %><%= review.account_lastname %>
+                                <span class="review-date">on <%= new Date(review.review_date).toLocaleDateString('en-US') %></span>
+                            </p>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <p>No reviews yet. Be the first to review this vehicle!</p>
+            <% } %>
+
+            <!-- Add Review Form -->
+            <% if (loggedin) { %>
+                <form action="/inv/detail/<%= vehicle.inv_id %>/review" method="POST" id="add-review-form">
+                    <h3>Add a Review</h3>
+                    <textarea name="review_text" id="review_text" rows="4" placeholder="Write your review here..." required></textarea>
+                    <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>">
+                    <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
+                    <p>Review as: <%= accountData.account_firstname.charAt(0) %><%= accountData.account_lastname %></p>
+                    <button type="submit">Submit Review</button>
+                </form>
+            <% } else { %>
+                <p>Please <a href="/account/login">log in</a> to add a review.</p>
+            <% } %>
+        </section>
+
     <% } else { %>
         <h1>Vehicle not found</h1>
         <p>We're sorry, but the vehicle you are looking for does not exist.</p>
         <a href="/">Return to Homepage</a>
     <% } %>
-    </div>
+</div>

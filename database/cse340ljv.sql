@@ -237,6 +237,27 @@ VALUES   (
     5
   );
 
+ -- Create the review table
+CREATE TABLE IF NOT EXISTS review (
+    review_id SERIAL PRIMARY KEY,
+    review_text TEXT NOT NULL,
+    review_date TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    inv_id INTEGER NOT NULL,
+    account_id INTEGER NOT NULL,
+    CONSTRAINT fk_inventory
+        FOREIGN KEY (inv_id)
+        REFERENCES inventory (inv_id)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_account
+        FOREIGN KEY (account_id)
+        REFERENCES account (account_id)
+        ON DELETE CASCADE
+);
+
+-- Indexes to speed up queries involving foreign keys
+CREATE INDEX IF NOT EXISTS idx_review_inv_id ON review (inv_id);
+CREATE INDEX IF NOT EXISTS idx_review_account_id ON review (account_id);
+
 -- Modify 'GM Hummer'
 UPDATE public.inventory
 SET inv_description = REPLACE(inv_description, 'small interiors', 'a huge interior')

@@ -1,6 +1,7 @@
 const invModel = require("../models/inventory-model");
 const utilities = require("../utilities/");
 const { body, validationResult } = require('express-validator');
+const reviewModel = require("../models/review-model");
 
 const invCont = {};
 
@@ -25,27 +26,31 @@ invCont.buildByClassificationId = async function (req, res, next) {
 };
 
 /* ***************************
- * Get individual inventory item details
+ * Get individual inventory item details with reviews
  * ************************** */
 invCont.getInventoryItemDetail = async function (req, res, next) {
   const vehicleId = req.params.id; 
   const vehicleData = await invModel.getVehicleById(vehicleId);
+  const reviews = await reviewModel.getReviewsByInventoryId(vehicleId); // Fetch reviews for the item
   
   if (vehicleData) {
-    let nav = await utilities.getNav();
-    const vehicleTitle = `${vehicleData.inv_make} ${vehicleData.inv_model}`;
-    
-    res.render("./inventory/detail", {
-      title: vehicleTitle,
-      nav,
-      vehicle: vehicleData,
-    });
+      let nav = await utilities.getNav();
+      const vehicleTitle = `${vehicleData.inv_make} ${vehicleData.inv_model}`;
+
+      res.render("./inventory/detail", {
+          title: vehicleTitle,
+          nav,
+          vehicle: vehicleData,
+          loggedin: res.locals.loggedin,
+          reviews, // Pass reviews to the view
+          accountData: res.locals.accountData, // Pass accountData if needed for the view
+      });
   } else {
-    res.status(404).render("error", {
-      title: "Vehicle Not Found",
-      nav: await utilities.getNav(),
-      message: "Sorry, the vehicle you're looking for could not be found."
-    });
+      res.status(404).render("error", {
+          title: "Vehicle Not Found",
+          nav: await utilities.getNav(),
+          message: "Sorry, the vehicle you're looking for could not be found."
+      });
   }
 };
 

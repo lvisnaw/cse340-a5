@@ -169,6 +169,7 @@ Util.checkJWTToken = (req, res, next) => {
 
           req.flash("notice", "Please log in.");
           res.clearCookie("jwt");
+          res.locals.loggedin = false; // added in attempt to fix site crash
           return res.redirect("/account/login");
         }
 

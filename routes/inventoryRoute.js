@@ -5,6 +5,7 @@ const invController = require("../controllers/invController");
 const utilities = require("../utilities");
 const { body } = require('express-validator'); // Import express-validator for validation
 const validate = require("../utilities/inventory-validation");
+const reviewController = require("../controllers/reviewController");
 
 // Route to build inventory by classification view
 router.get(
@@ -145,6 +146,34 @@ router.post(
     utilities.checkLogin,
     utilities.checkAccountType(['employee', 'admin']), // Restrict to employee and admin roles
     utilities.handleErrors(invController.deleteInventoryItem)
+);
+
+// Route to add a new review
+router.post(
+    "/detail/:id/review", 
+    utilities.checkLogin, // Ensure user is logged in
+    body("review_text").notEmpty().withMessage("Review cannot be empty"), // Validate review
+    utilities.handleErrors(reviewController.addReview)
+);
+
+// Route to edit a review
+router.get(
+    "/review/edit/:review_id",
+    utilities.checkLogin,
+    utilities.handleErrors(reviewController.getEditReviewView)
+);
+router.post(
+    "/review/edit/:review_id",
+    utilities.checkLogin,
+    body("review_text").notEmpty().withMessage("Review cannot be empty"),
+    utilities.handleErrors(reviewController.updateReview)
+);
+
+// Route to delete a review
+router.post(
+    "/review/delete/:review_id",
+    utilities.checkLogin,
+    utilities.handleErrors(reviewController.deleteReview)
 );
 
 // Route to trigger an intentional error
