@@ -25,6 +25,54 @@
     <p><a href="/inv/" class="btn btn-primary">Access Inventory Management</a></p>
   <% } %>
 
+    <!-- Display Reviews Section if User has Reviews -->
+    <h3>Your Reviews</h3>
+    
+    <% if (userReviews && userReviews.length > 0) { %>
+      <div class="review-item">
+        <% userReviews.forEach(function(review) { %>
+          <p><strong>For:</strong> <%= review.inv_make %> <%= review.inv_model %></p>
+          <p><strong>Review:</strong> <%= review.review_text %></p>
+          <p><strong>Date:</strong> <%= new Date(review.review_date).toLocaleDateString('en-US') %></p>
+          
+          <!-- Edit and Delete options for the review -->
+          <a href="/inv/review/edit/<%= review.review_id %>">Edit</a>
+          <a href="/inv/review/delete/<%= review.review_id %>" onclick="return confirm('Are you sure you want to delete this review?')">Delete</a>
+
+          <hr>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <p>You have not written any reviews yet.</p>
+    <% } %>
+
+    <!-- Display Client Reviews for Admins -->
+    <% if (user.account_type === 'Admin') { %>
+      <h3>Client Reviews</h3>
+      <% if (clientReviews && clientReviews.length > 0) { %>
+        <div class="user-reviews">
+          <% clientReviews.forEach(function(review) { %>
+            <div class="review-item">
+              <p><strong>Reviewer:</strong> <%= review.account_firstname.charAt(0) %><%= review.account_lastname %></p>
+              <p><strong>For:</strong> <%= review.inv_make %> <%= review.inv_model %></p>
+              <p><strong>Review:</strong> <%= review.review_text %></p>
+              <p><strong>Date:</strong> <%= new Date(review.review_date).toLocaleDateString('en-US') %></p>
+              
+              <!-- Edit and Delete options for the review -->
+              <a href="/inv/review/edit/<%= review.review_id %>">Edit</a>
+              <form action="/inv/review/delete/<%= review.review_id %>" method="POST" style="display: inline;">
+                <button type="submit" onclick="return confirm('Are you sure you want to delete this review?')">Delete</button>
+              </form>
+
+              <hr>
+            </div>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <p>No client reviews have been written.</p>
+      <% } %>
+    <% } %>
+
   <!-- Update account information link -->
   <p><a href="/account/update/<%= user.account_id %>" class="btn btn-secondary">Update Account Information</a></p>
 </div>

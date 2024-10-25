@@ -27,7 +27,7 @@
                             
                             <p class="review-text"><%= review.review_text %></p>
                             <p class="review-author">
-                                <strong>Reviewed by:</strong> <%= review.account_firstname %>&nbsp;<%= review.account_lastname.charAt(0) %>
+                                <strong>Reviewed by:</strong> <%= review.account_firstname.charAt(0) %><%= review.account_lastname %>
                                 <span class="review-date">on <%= new Date(review.review_date).toLocaleDateString('en-US') %></span>
                             </p>
         

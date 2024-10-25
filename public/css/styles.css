@@ -617,6 +617,29 @@ input:required:valid, textarea:required:valid {
   color: green;
 }
 
+.edit-review-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-review-container textarea {
+  margin-bottom: 10px;
+}
+
+.edit-review-container .btn-cancel {
+  align-self: flex-end;
+  text-decoration: none;
+  padding: 5px 10px;
+}
+
+.edit-review-container .btn-cancel:hover {
+  text-decoration: underline;
+}
+
+.edit-review-container button[type="submit"] {
+  margin-bottom: 10px; /* Space between the button and the cancel link */
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
   #invNav ul {

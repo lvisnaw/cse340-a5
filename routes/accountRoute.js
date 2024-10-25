@@ -4,6 +4,7 @@ const router = new express.Router()
 const accountController = require("../controllers/accountController")
 const utilities = require("../utilities")
 const validate = require("../utilities/account-validation")
+const reviewController = require("../controllers/reviewController")
 
 // Route for the "My Account" page
 router.get(
@@ -73,5 +74,12 @@ router.post(
 
 // Route for logging out
 router.get("/logout", utilities.handleErrors(accountController.logout))
+
+// Route for account admin page with user reviews
+router.get(
+    "/admin",
+    utilities.checkLogin, // Ensure the user is logged in
+    utilities.handleErrors(reviewController.getUserReviews)
+)
 
 module.exports = router;

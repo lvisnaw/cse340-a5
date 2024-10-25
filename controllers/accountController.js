@@ -1,6 +1,7 @@
 // Needed resources
 const utilities = require("../utilities")
 const accountModel = require("../models/account-model")
+const reviewModel = require("../models/review-model")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
@@ -188,6 +189,16 @@ async function buildAccountView(req, res, next) {
     // Pass user data to the view
     const userData = req.session.accountData || {};
     console.log(userData);
+
+    // Fetch user reviews
+    // const reviews = await reviewModel.getReviewsByAccountId(userData.account_id);
+
+    let userReviews = await reviewModel.getReviewsByAccountId(userData.account_id);
+    let clientReviews = [];
+
+    if (userData.account_type === 'Admin') {
+      clientReviews = await reviewModel.getAllClientReviews();
+    }
     
     res.render("account/account", {
       title: "Account Management",
@@ -195,9 +206,13 @@ async function buildAccountView(req, res, next) {
       message: "You're logged in",
       errors: null, // Add if you're handling validation errors in this view
       user: userData, // Pass the user data to the view
+      userReviews,
+      clientReviews,
+      // reviews,
       loggedin: res.locals.loggedin
     });
   } catch (error) {
+    console.error("Error building account view:", error);
     next(error); // Pass error to error handling middleware
   }
 }

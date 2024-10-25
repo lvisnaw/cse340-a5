@@ -66,8 +66,10 @@ async function updateReview(review_id, review_text) {
  * ************************** */
 async function deleteReview(review_id) {
     try {
-        const sql = `DELETE FROM public.review WHERE review_id = $1`;
+        console.log("Deleting review with ID:", review_id);
+        const sql = `DELETE FROM public.review WHERE review_id = $1 RETURNING *`;
         const result = await pool.query(sql, [review_id]);
+        console.log("Delete SQL result:", result);
         return result.rowCount;
     } catch (error) {
         console.error("deleteReview error: " + error);
@@ -75,10 +77,52 @@ async function deleteReview(review_id) {
     }
 }
 
+/* ***************************
+ *  Get reviews by a specific account ID
+ * ************************** */
+async function getReviewsByAccountId(account_id) {
+    try {
+        const sql = `SELECT r.review_id, r.review_text, r.review_date, i.inv_make, i.inv_model 
+                     FROM public.review AS r
+                     JOIN public.inventory AS i ON r.inv_id = i.inv_id
+                     WHERE r.account_id = $1
+                     ORDER BY r.review_date DESC`;
+        const result = await pool.query(sql, [account_id]);
+        return result.rows;
+    } catch (error) {
+        console.error("getReviewsByAccountId error: " + error);
+        throw error;
+    }
+}
+
+/* ***************************
+ *  Get all reviews by clients (for admin view)
+ * ************************** */
+async function getAllClientReviews() {
+    try {
+        const sql = `
+            SELECT r.review_id, r.review_text, r.review_date, r.inv_id, a.account_firstname, a.account_lastname, a.account_type, i.inv_make, i.inv_model
+            FROM public.review AS r
+            JOIN public.account AS a ON r.account_id = a.account_id
+            JOIN public.inventory AS i ON r.inv_id = i.inv_id
+            WHERE a.account_type = 'Client'
+            ORDER BY r.review_date DESC;
+        `;
+        const result = await pool.query(sql);
+        return result.rows;
+    } catch (error) {
+        console.error("getAllClientReviews error: " + error);
+        throw error;
+    }
+}
+
+
 module.exports = {
     addReview,
     getReviewsByInventoryId,
     getReviewById,
     updateReview,
-    deleteReview
+    deleteReview,
+    getReviewsByAccountId,
+    getAllClientReviews
 };
