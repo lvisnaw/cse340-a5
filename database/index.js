@@ -7,7 +7,7 @@ require("dotenv").config();
  * But will cause problems in production environment
  * IF - else will make a determination which to use
  * ********************* */
-let pool; // changed to lower case pool because vscode was showing an error in the code.
+let pool;
 if (process.env.NODE_ENV === "development") {
     pool = new Pool({
         connectionString: process.env.DATABASE_URL,
@@ -32,6 +32,9 @@ if (process.env.NODE_ENV === "development") {
 } else {
     pool = new Pool({
         connectionString: process.env.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: false,
+        },
     });
     module.exports = pool;
 }
