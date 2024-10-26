@@ -640,6 +640,34 @@ input:required:valid, textarea:required:valid {
   margin-bottom: 10px; /* Space between the button and the cancel link */
 }
 
+/* Specific styles for the account page form */
+.account-form {
+  background-color: var(--primary-background); 
+  font-size: 14px;
+  border: 0; 
+  padding: 15px;
+  border-radius: 6px;
+  max-width: 400px;
+  margin: 10px auto;
+}
+
+.account-form button.account-delete-btn {
+  background-color: var(--primary-background);
+  color: var(--main-accent);
+  font-size: 1em;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effect */
+.account-form button.account-delete-btn:hover {
+  background-color: var(--primary-background);
+  color: var(--primary-background);
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
   #invNav ul {

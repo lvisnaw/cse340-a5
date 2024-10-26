@@ -26,7 +26,7 @@ async function getEditReviewView(req, res, next) {
     const review_id = req.params.review_id;
     const review = await reviewModel.getReviewById(review_id);
 
-    if (review && review.account_id === req.session.accountData.account_id) {
+    if (review && (review.account_id === req.session.accountData.account_id || req.session.accountData.account_type === "Admin")) {
         let nav = await utilities.getNav();
         res.render("review/edit-review", {
             title: "Edit Review",
@@ -47,10 +47,20 @@ async function updateReview(req, res, next) {
     const { review_text } = req.body;
 
     try {
-        await reviewModel.updateReview(review_id, review_text);
-        req.flash("success", "Review updated successfully.");
+        // Fetch the review to verify ownership or admin access
+        const review = await reviewModel.getReviewById(review_id);
+
+        // Check if the review belongs to the logged-in user or if the user is an admin
+        if (review && (review.account_id === req.session.accountData.account_id || req.session.accountData.account_type === "Admin")) {
+            await reviewModel.updateReview(review_id, review_text);
+            req.flash("success", "Review updated successfully.");
+        } else {
+            req.flash("error", "You do not have permission to update this review.");
+        }
+
         res.redirect("/account");
     } catch (error) {
+        console.error("Error updating review:", error);
         req.flash("error", "Failed to update review.");
         res.redirect(`/review/edit/${review_id}`);
     }
