@@ -324,7 +324,7 @@ section#reviews {
 .review-item {
   /* border: 1px solid var(--main-accent); */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  padding: 10px;
+  padding: 10px 20px;
   margin: 10px 0;
 }
 
@@ -645,7 +645,7 @@ input:required:valid, textarea:required:valid {
   background-color: var(--primary-background); 
   font-size: 14px;
   border: 0; 
-  padding: 15px;
+  padding: 12px 1px;
   border-radius: 6px;
   max-width: 400px;
   margin: 10px auto;
@@ -665,6 +665,28 @@ input:required:valid, textarea:required:valid {
 /* Hover effect */
 .account-form button.account-delete-btn:hover {
   background-color: var(--primary-background);
+  color: var(--primary-background);
+}
+
+/* Make the edit link look like the delete button */
+.btn-edit {
+  display: inline-block;
+  background-color: var(--primary-background);
+  color: var(--drk-blue);
+  font-weight: 600;
+  font-size: 1em;
+  padding: 11px 20px;
+  margin: 0 10px;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none; /* Remove underline */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effect */
+.btn-edit:hover {
+  background-color: var(--secondary-background);
   color: var(--primary-background);
 }
 

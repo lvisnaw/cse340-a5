@@ -53,6 +53,7 @@ async function updateReview(req, res, next) {
         // Check if the review belongs to the logged-in user or if the user is an admin
         if (review && (review.account_id === req.session.accountData.account_id || req.session.accountData.account_type === "Admin")) {
             await reviewModel.updateReview(review_id, review_text);
+            console.log("Review updated successfully.");
             req.flash("success", "Review updated successfully.");
         } else {
             req.flash("error", "You do not have permission to update this review.");

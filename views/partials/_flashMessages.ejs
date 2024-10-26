@@ -1,0 +1,20 @@
+<!-- Flash messages -->
+<% if (successMessage && successMessage.length > 0) { %>
+    <div class="flash-message success"><%= successMessage %></div>
+  <% } %>
+  
+  <% if (errorMessage && errorMessage.length > 0) { %>
+    <div class="flash-message error"><%= errorMessage %></div>
+  <% } %>
+  
+  <% if (noticeMessage && noticeMessage.length > 0) { %>
+    <div class="flash-message notice"><%= noticeMessage %></div>
+  <% } %>
+  
+  <% if (errors) { %>
+    <ul class="notice">
+      <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
