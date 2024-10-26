@@ -22,8 +22,7 @@
                 <ul class="review-list">
                     <% reviews.forEach(function(review) { %>
                         <li class="review-item">
-                            <pre>Logged in user ID: <%= accountData ? accountData.account_id : 'Not available' %></pre>
-                            <pre>Review author ID: <%= review.account_id %></pre>
+                            
                             
                             <p class="review-text"><%= review.review_text %></p>
                             <p class="review-author">
@@ -49,7 +48,7 @@
                     <textarea name="review_text" id="review_text" rows="4" placeholder="Write your review here..." required></textarea>
                     <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>">
                     <input type="hidden" name="account_id" value="<%= accountData.account_id %>">
-                    <p>Review as: <%= accountData.account_firstname %>&nbsp;<%= accountData.account_lastname.charAt(0) %></p>
+                    <p>Review as: <%= accountData.account_firstname.charAt(0) %><%= accountData.account_lastname %></p>
                     <button type="submit">Submit Review</button>
                 </form>
             <% } else { %>
